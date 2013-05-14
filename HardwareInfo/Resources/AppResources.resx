@@ -182,4 +182,7 @@
   <data name="FMRadio" xml:space="preserve">
     <value>FM Radio</value>
   </data>
+  <data name="VersionNumberString" xml:space="preserve">
+    <value>1.0</value>
+  </data>
 </root>

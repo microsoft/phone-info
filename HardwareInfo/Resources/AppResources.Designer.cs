@@ -241,6 +241,15 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1.0.
+        /// </summary>
+        public static string VersionNumberString {
+            get {
+                return ResourceManager.GetString("VersionNumberString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vibration device.
         /// </summary>
         public static string VibrationDevice {

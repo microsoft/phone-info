@@ -60,11 +60,10 @@
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock
-                Text="{Binding Path=LocalizedResources.ApplicationTitle,
-                       Source={StaticResource LocalizedStrings}}"
-                Style="{StaticResource PhoneTextNormalStyle}"
-                />
+            <TextBlock>
+                <Run Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" />
+                <Run Text="{Binding Path=LocalizedResources.VersionNumberString, Source={StaticResource LocalizedStrings}}" />
+            </TextBlock>
         </StackPanel>
 
         <ProgressBar
@@ -169,121 +168,121 @@
                     <Image
                         Grid.Row="5"
                         Grid.Column="0"
-                        Source="{Binding Path=FrontCameraExists, Converter={StaticResource IconUriConverter}}"
+                        Source="{Binding Path=FMRadioExists, Converter={StaticResource IconUriConverter}}"
                         />
                     <TextBlock
                         Grid.Row="5"
+                        Grid.Column="1"
+                        Style="{StaticResource ListItemTextBlockStyle}"
+                        Text="{Binding LocalizedResources.FMRadio, Mode=OneWay, Source={StaticResource LocalizedStrings}}"
+                        />
+                    
+                    <Image
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Source="{Binding Path=FrontCameraExists, Converter={StaticResource IconUriConverter}}"
+                        />
+                    <TextBlock
+                        Grid.Row="6"
                         Grid.Column="1"
                         Style="{StaticResource ListItemTextBlockStyle}"
                         Text="{Binding LocalizedResources.FrontCamera, Mode=OneWay, Source={StaticResource LocalizedStrings}}"
                         />
 
                     <Image
-                        Grid.Row="6"
+                        Grid.Row="7"
                         Grid.Column="0"
                         Source="{Binding Path=FrontCameraFlashExists, Converter={StaticResource IconUriConverter}}"
                         />
                     <TextBlock
-                        Grid.Row="6"
+                        Grid.Row="7"
                         Grid.Column="1"
                         Style="{StaticResource ListItemTextBlockStyle}"
                         Text="{Binding LocalizedResources.FrontCameraFlash, Mode=OneWay, Source={StaticResource LocalizedStrings}}"
                         />
 
                     <Image
-                        Grid.Row="7"
+                        Grid.Row="8"
                         Grid.Column="0"
                         Source="{Binding Path=GyroscopeExists, Converter={StaticResource IconUriConverter}}"
                         />
                     <TextBlock
-                        Grid.Row="7"
+                        Grid.Row="8"
                         Grid.Column="1"
                         Style="{StaticResource ListItemTextBlockStyle}"
                         Text="{Binding LocalizedResources.Gyroscope, Mode=OneWay, Source={StaticResource LocalizedStrings}}"
                         />
 
                     <Image
-                        Grid.Row="8"
+                        Grid.Row="9"
                         Grid.Column="0"
                         Source="{Binding Path=InclinometerExists, Converter={StaticResource IconUriConverter}}"
                         />
                     <TextBlock
-                        Grid.Row="8"
+                        Grid.Row="9"
                         Grid.Column="1"
                         Style="{StaticResource ListItemTextBlockStyle}"
                         Text="{Binding LocalizedResources.Inclinometer, Mode=OneWay, Source={StaticResource LocalizedStrings}}"
                         />
 
                     <Image
-                        Grid.Row="9"
+                        Grid.Row="10"
                         Grid.Column="0"
                         Source="{Binding Path=MotionApiAvailable, Converter={StaticResource IconUriConverter}}"
                         />
                     <TextBlock
-                        Grid.Row="9"
+                        Grid.Row="10"
                         Grid.Column="1"
                         Style="{StaticResource ListItemTextBlockStyle}"
                         Text="{Binding LocalizedResources.MotionApi, Mode=OneWay, Source={StaticResource LocalizedStrings}}"
                         />
 
                     <Image
-                        Grid.Row="10"
+                        Grid.Row="11"
                         Grid.Column="0"
                         Source="{Binding Path=OrientationSensorExists, Converter={StaticResource IconUriConverter}}"
                         />
                     <TextBlock
-                        Grid.Row="10"
+                        Grid.Row="11"
                         Grid.Column="1"
                         Style="{StaticResource ListItemTextBlockStyle}"
                         Text="{Binding LocalizedResources.OrientationSensor, Mode=OneWay, Source={StaticResource LocalizedStrings}}"
                         />
 
                     <Image
-                        Grid.Row="11"
+                        Grid.Row="12"
                         Grid.Column="0"
                         Source="{Binding Path=ProximityExists, Converter={StaticResource IconUriConverter}}"
                         />
                     <TextBlock
-                        Grid.Row="11"
+                        Grid.Row="12"
                         Grid.Column="1"
                         Style="{StaticResource ListItemTextBlockStyle}"
                         Text="{Binding LocalizedResources.NFC, Mode=OneWay, Source={StaticResource LocalizedStrings}}"
                         />
 
                     <Image
-                        Grid.Row="12"
+                        Grid.Row="13"
                         Grid.Column="0"
                         Source="{Binding Path=SDCardExists, Converter={StaticResource IconUriConverter}}"
                         />
                     <TextBlock
-                        Grid.Row="12"
+                        Grid.Row="13"
                         Grid.Column="1"
                         Style="{StaticResource ListItemTextBlockStyle}"
                         Text="{Binding LocalizedResources.SDCard, Mode=OneWay, Source={StaticResource LocalizedStrings}}"
                         />
 
                     <Image
-                        Grid.Row="13"
+                        Grid.Row="14"
                         Grid.Column="0"
                         Source="{Binding Path=VibrationDeviceExists, Converter={StaticResource IconUriConverter}}"
                         />
                     <TextBlock
-                        Grid.Row="13"
+                        Grid.Row="14"
                         Grid.Column="1"
                         Style="{StaticResource ListItemTextBlockStyle}"
                         Text="{Binding LocalizedResources.VibrationDevice, Mode=OneWay, Source={StaticResource LocalizedStrings}}"
-                        />
-
-                    <Image
-                        Grid.Row="14"
-                        Grid.Column="0"
-                        Source="{Binding Path=FMRadioExists, Converter={StaticResource IconUriConverter}}"
-                        />
-                    <TextBlock
-                        Grid.Row="14"
-                        Grid.Column="1"
-                        Style="{StaticResource ListItemTextBlockStyle}"
-                        Text="{Binding LocalizedResources.FMRadio, Mode=OneWay, Source={StaticResource LocalizedStrings}}"
                         />
 
                 </Grid>
