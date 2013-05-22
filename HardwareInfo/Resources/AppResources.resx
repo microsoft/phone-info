@@ -183,6 +183,18 @@
     <value>FM Radio</value>
   </data>
   <data name="VersionNumberString" xml:space="preserve">
-    <value>1.0</value>
+    <value>1.0.1</value>
+  </data>
+  <data name="AvailabilityTitle" xml:space="preserve">
+    <value>Availability</value>
+  </data>
+  <data name="CharacteristicsTitle" xml:space="preserve">
+    <value>Characteristics</value>
+  </data>
+  <data name="Memory" xml:space="preserve">
+    <value>Memory</value>
+  </data>
+  <data name="ScreenResolution" xml:space="preserve">
+    <value>Screen resolution</value>
   </data>
 </root>

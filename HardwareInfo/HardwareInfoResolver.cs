@@ -31,7 +31,7 @@ namespace HardwareInfo
     /// 对于众多的硬件的访问，需要添加Cap，如果没有添加，当该硬件不存在，
     /// 或者功能被用户关闭时，会触发 UnauthorizedAccessException 的异常
     /// </summary>
-    class HardwareInfoResolver
+    public class HardwareInfoResolver
     {
         public bool AccelerometerExists { get; set; }
         public bool BackCameraExists { get; set; }
@@ -51,6 +51,36 @@ namespace HardwareInfo
 
         public string MemoryCurrentUsed { get; set; }
         public string MemoryMaxAvailable { get; set; }
+
+        /// <summary>
+        /// Returns a string describing the screen resolution.
+        /// </summary>
+        public string ScreenResolution
+        {
+            get
+            {
+                switch (App.Current.Host.Content.ScaleFactor)
+                {
+                    case 100:
+                    {
+                        // Wide VGA, 480x800
+                        return "WVGA";
+                    }
+                    case 150:
+                    {
+                        // HD, 720x1280
+                        return "HD (720x1280)";
+                    }
+                    case 160:
+                    {
+                        // Wide Extended Graphics Array (WXGA), 768x1280
+                        return "WXGA";
+                    }
+                }
+
+                return "Unknown";
+            }
+        }                        
 
         /// <summary>
         /// Resolves the supported harware. Note executing this method may take

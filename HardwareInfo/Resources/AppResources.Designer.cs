@@ -97,11 +97,29 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Availability.
+        /// </summary>
+        public static string AvailabilityTitle {
+            get {
+                return ResourceManager.GetString("AvailabilityTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Battery sensor.
         /// </summary>
         public static string BatterySensor {
             get {
                 return ResourceManager.GetString("BatterySensor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Characteristics.
+        /// </summary>
+        public static string CharacteristicsTitle {
+            get {
+                return ResourceManager.GetString("CharacteristicsTitle", resourceCulture);
             }
         }
         
@@ -169,6 +187,15 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Memory.
+        /// </summary>
+        public static string Memory {
+            get {
+                return ResourceManager.GetString("Memory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Motion API.
         /// </summary>
         public static string MotionApi {
@@ -232,6 +259,15 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Screen resolution.
+        /// </summary>
+        public static string ScreenResolution {
+            get {
+                return ResourceManager.GetString("ScreenResolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SD card present.
         /// </summary>
         public static string SDCard {
@@ -241,7 +277,7 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.0.
+        ///   Looks up a localized string similar to 1.0.1.
         /// </summary>
         public static string VersionNumberString {
             get {
