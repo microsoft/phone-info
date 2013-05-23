@@ -165,10 +165,10 @@
     <value>Orientation sensor</value>
   </data>
   <data name="PrimaryCamera" xml:space="preserve">
-    <value>Primary camera</value>
+    <value>Back camera</value>
   </data>
   <data name="PrimaryCameraFlash" xml:space="preserve">
-    <value>Primary camera flash</value>
+    <value>Back camera flash</value>
   </data>
   <data name="SDCard" xml:space="preserve">
     <value>SD card present</value>
@@ -183,7 +183,7 @@
     <value>FM Radio</value>
   </data>
   <data name="VersionNumberString" xml:space="preserve">
-    <value>1.0.1</value>
+    <value>1.1</value>
   </data>
   <data name="AvailabilityTitle" xml:space="preserve">
     <value>Availability</value>
@@ -192,9 +192,15 @@
     <value>Characteristics</value>
   </data>
   <data name="Memory" xml:space="preserve">
-    <value>Memory</value>
+    <value>App memory</value>
   </data>
   <data name="ScreenResolution" xml:space="preserve">
     <value>Screen resolution</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Not available</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Waiting...</value>
   </data>
 </root>

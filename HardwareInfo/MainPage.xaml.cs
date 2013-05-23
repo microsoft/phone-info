@@ -33,6 +33,18 @@ namespace HardwareInfo
         // Members
         private HardwareInfoResolver _resolver = null;
 
+        public HardwareInfoResolver Resolver
+        {
+            get
+            {
+                return _resolver;
+            }
+            private set
+            {
+                _resolver = value;
+            }
+        }
+
         /// <summary>
         /// Constructor.
         /// 构造函数
@@ -41,7 +53,7 @@ namespace HardwareInfo
         {
             InitializeComponent();
             DataContext = App.ViewModel;
-            _resolver = new HardwareInfoResolver();
+            Resolver = new HardwareInfoResolver();
             Loaded += MainPage_Loaded;
         }
 

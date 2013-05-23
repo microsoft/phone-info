@@ -19,13 +19,19 @@
     shell:SystemTray.IsVisible="True">
     
     <phone:PhoneApplicationPage.Resources>
-        <Style x:Name="ListItemTextBlockStyle" TargetType="TextBlock">
-            <Setter Property="Margin" Value="18"/>
-            <Setter Property="FontSize" Value="30"/>
+        <Style x:Name="ListItemTextBlockStyleLarge" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10,0,0,10"/>
+            <Setter Property="FontFamily" Value="Segoe WP Semilight"/>
+            <Setter Property="FontSize" Value="42"/>
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
-        
+        <Style x:Name="ListItemTextBlockStyleSmall" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>        
         <src:BooleanToIconUriConverter x:Key="IconUriConverter" />
     </phone:PhoneApplicationPage.Resources>
     
@@ -74,7 +80,7 @@
                                 <TextBlock
                                     Grid.Row="0"
                                     Grid.Column="1"
-                                    Style="{StaticResource ListItemTextBlockStyle}"
+                                    Style="{StaticResource ListItemTextBlockStyleLarge}"
                                     Text="{Binding HardwareFeatureText}"
                                 />
                             </Grid>
@@ -89,12 +95,32 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Margin="0,0,0,17">
-                        <TextBlock Text="{Binding Path=LocalizedResources.ScreenResolution, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                        <TextBlock Text="{Binding ScreenResolution}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                        <TextBlock
+                            Text="{Binding Path=LocalizedResources.ScreenResolution, Source={StaticResource LocalizedStrings}}"
+                            TextWrapping="Wrap"
+                            Style="{StaticResource PhoneTextExtraLargeStyle}"
+                            />
+                        <TextBlock
+                            Text="{Binding ScreenResolution}"
+                            TextWrapping="Wrap"
+                            Style="{StaticResource ListItemTextBlockStyleSmall}"
+                            />
                     </StackPanel>
-                    <StackPanel Grid.Row="1" Margin="0,0,0,17">
-                        <TextBlock Text="{Binding Path=LocalizedResources.Memory, Source={StaticResource LocalizedStrings}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                        <TextBlock Text="{Binding MotionApiAvailable}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                    <StackPanel Grid.Row="1" Margin="0,10,0,17">
+                        <TextBlock
+                            Text="{Binding Path=LocalizedResources.Memory, Source={StaticResource LocalizedStrings}}"
+                            TextWrapping="Wrap"
+                            Style="{StaticResource PhoneTextExtraLargeStyle}"
+                            />
+                        <TextBlock
+                            Text="{Binding MemoryStatus}"
+                            TextWrapping="Wrap"
+                            Style="{StaticResource ListItemTextBlockStyleSmall}"
+                            />
+                        <ProgressBar
+                            Margin="0,5,0,0"
+                            Value="{Binding MemoryUsedInPercentages}"
+                            />
                     </StackPanel>
                 </Grid>
             </phone:PivotItem>

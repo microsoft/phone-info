@@ -26,6 +26,48 @@ namespace HardwareInfo.ViewModels
             private set;
         }
 
+        private string _screenResolution;
+        public string ScreenResolution
+        {
+            get
+            {
+                return _screenResolution;
+            }
+            private set
+            {
+                _screenResolution = value;
+                NotifyPropertyChanged("ScreenResolution");
+            }
+        }
+
+        private int _memoryUsedInPercentages;
+        public int MemoryUsedInPercentages
+        {
+            get
+            {
+                return _memoryUsedInPercentages;
+            }
+            set
+            {
+                _memoryUsedInPercentages = value;
+                NotifyPropertyChanged("MemoryUsedInPercentages");
+            }
+        }
+
+        private string _memoryStatus;
+        public string MemoryStatus
+        {
+            get
+            {
+                return _memoryStatus;
+            }
+            set
+            {
+                _memoryStatus = value;
+                NotifyPropertyChanged("MemoryStatus");
+            }
+        }
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -101,6 +143,22 @@ namespace HardwareInfo.ViewModels
                 }
             }
 
+            ScreenResolution = resolver.ScreenResolution;
+
+            try
+            {
+                MemoryUsedInPercentages =
+                    (int)Math.Round(100 * Double.Parse(resolver.MemoryCurrentUsed)
+                    / Double.Parse(resolver.MemoryMaxAvailable));
+                MemoryStatus =
+                    (int.Parse(resolver.MemoryCurrentUsed) / (1024 * 1024)) + " MB used of "
+                    + (int.Parse(resolver.MemoryMaxAvailable) / (1024 * 1024)) + " MB";
+            }
+            catch (Exception)
+            {
+                MemoryStatus = AppResources.NotAvailable;
+            }
+
             IsDataLoaded = true;
         }
 
@@ -123,6 +181,9 @@ namespace HardwareInfo.ViewModels
             Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.NFC });
             Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.SDCard });
             Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.VibrationDevice });
+            
+            ScreenResolution = AppResources.Waiting;
+            MemoryStatus = AppResources.Waiting;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

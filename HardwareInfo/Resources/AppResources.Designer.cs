@@ -187,7 +187,7 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Memory.
+        ///   Looks up a localized string similar to App memory.
         /// </summary>
         public static string Memory {
             get {
@@ -214,6 +214,15 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not available.
+        /// </summary>
+        public static string NotAvailable {
+            get {
+                return ResourceManager.GetString("NotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Orientation sensor.
         /// </summary>
         public static string OrientationSensor {
@@ -223,7 +232,7 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Primary camera.
+        ///   Looks up a localized string similar to Back camera.
         /// </summary>
         public static string PrimaryCamera {
             get {
@@ -232,7 +241,7 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Primary camera flash.
+        ///   Looks up a localized string similar to Back camera flash.
         /// </summary>
         public static string PrimaryCameraFlash {
             get {
@@ -277,7 +286,7 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.0.1.
+        ///   Looks up a localized string similar to 1.1.
         /// </summary>
         public static string VersionNumberString {
             get {
@@ -291,6 +300,15 @@ namespace HardwareInfo.Resources {
         public static string VibrationDevice {
             get {
                 return ResourceManager.GetString("VibrationDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting....
+        /// </summary>
+        public static string Waiting {
+            get {
+                return ResourceManager.GetString("Waiting", resourceCulture);
             }
         }
     }

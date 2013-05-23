@@ -17,6 +17,7 @@ using Windows.Phone.Media.Capture;
 using Windows.Phone.Devices.Power;
 
 using Microsoft.Devices.Radio;
+using System.Windows.Threading;
 
 namespace HardwareInfo
 {
@@ -49,38 +50,9 @@ namespace HardwareInfo
         public bool VibrationDeviceExists { get; set; }
         public bool FMRadioExists { get; set; }
 
+        public string ScreenResolution { get; set; }
         public string MemoryCurrentUsed { get; set; }
-        public string MemoryMaxAvailable { get; set; }
-
-        /// <summary>
-        /// Returns a string describing the screen resolution.
-        /// </summary>
-        public string ScreenResolution
-        {
-            get
-            {
-                switch (App.Current.Host.Content.ScaleFactor)
-                {
-                    case 100:
-                    {
-                        // Wide VGA, 480x800
-                        return "WVGA";
-                    }
-                    case 150:
-                    {
-                        // HD, 720x1280
-                        return "HD (720x1280)";
-                    }
-                    case 160:
-                    {
-                        // Wide Extended Graphics Array (WXGA), 768x1280
-                        return "WXGA";
-                    }
-                }
-
-                return "Unknown";
-            }
-        }                        
+        public string MemoryMaxAvailable { get; set; }                      
 
         /// <summary>
         /// Resolves the supported harware. Note executing this method may take
@@ -99,9 +71,11 @@ namespace HardwareInfo
             GetMotionApiInfo();
             GetOrientationSensorInfo();
             GetProximityInfo();
+            GetMemoryInfo();
             GetSDCardInfo();
             GetVibrationDeviceInfo();
             GetFMRadioInfo();
+            GetScreenResolution();
         }
 
         /// <summary>
@@ -335,5 +309,40 @@ namespace HardwareInfo
             }
         }
 
+        /// <summary>
+        /// Resolves the screen resolution.
+        /// </summary>
+        private void GetScreenResolution()
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                switch (App.Current.Host.Content.ScaleFactor)
+                {
+                    case 100:
+                        {
+                            // Wide VGA, 480x800
+                            ScreenResolution = "WVGA, 480x800";
+                            break;
+                        }
+                    case 150:
+                        {
+                            // HD, 720x1280
+                            ScreenResolution = "HD, 720x1280";
+                            break;
+                        }
+                    case 160:
+                        {
+                            // Wide Extended Graphics Array (WXGA), 768x1280
+                            ScreenResolution = "WXGA, 768x1280";
+                            break;
+                        }
+                    default:
+                        {
+                            ScreenResolution = "Unknown";
+                            break;
+                        }
+                }
+            });
+        }
     }
 }
