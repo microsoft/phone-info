@@ -7,11 +7,30 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using HardwareInfo.Resources;
+using HardwareInfo.ViewModels;
 
 namespace HardwareInfo
 {
     public partial class App : Application
     {
+        private static MainViewModel viewModel = null;
+
+        /// <summary>
+        /// A static ViewModel used by the views to bind against.
+        /// </summary>
+        /// <returns>The MainViewModel object.</returns>
+        public static MainViewModel ViewModel
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (viewModel == null)
+                    viewModel = new MainViewModel();
+
+                return viewModel;
+            }
+        }
+
         /// <summary>
         ///提供对电话应用程序的根框架的轻松访问。
         /// </summary>

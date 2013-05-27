@@ -1,0 +1,12 @@
+﻿<vm:MainViewModel
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:HardwareInfo.ViewModels">
+
+    <vm:MainViewModel.Items>
+        <vm:ItemModel BooleanValue="false" HardwareFeatureText="Test item 1"/>
+        <vm:ItemModel BooleanValue="true" HardwareFeatureText="Test item 2"/>
+        <vm:ItemModel BooleanValue="false" HardwareFeatureText="Test item 3"/>
+    </vm:MainViewModel.Items>
+
+</vm:MainViewModel>

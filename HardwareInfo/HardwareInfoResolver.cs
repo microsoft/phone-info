@@ -17,6 +17,7 @@ using Windows.Phone.Media.Capture;
 using Windows.Phone.Devices.Power;
 
 using Microsoft.Devices.Radio;
+using System.Windows.Threading;
 
 namespace HardwareInfo
 {
@@ -31,7 +32,7 @@ namespace HardwareInfo
     /// 对于众多的硬件的访问，需要添加Cap，如果没有添加，当该硬件不存在，
     /// 或者功能被用户关闭时，会触发 UnauthorizedAccessException 的异常
     /// </summary>
-    class HardwareInfoResolver
+    public class HardwareInfoResolver
     {
         public bool AccelerometerExists { get; set; }
         public bool BackCameraExists { get; set; }
@@ -49,8 +50,9 @@ namespace HardwareInfo
         public bool VibrationDeviceExists { get; set; }
         public bool FMRadioExists { get; set; }
 
+        public string ScreenResolution { get; set; }
         public string MemoryCurrentUsed { get; set; }
-        public string MemoryMaxAvailable { get; set; }
+        public string MemoryMaxAvailable { get; set; }                      
 
         /// <summary>
         /// Resolves the supported harware. Note executing this method may take
@@ -69,9 +71,11 @@ namespace HardwareInfo
             GetMotionApiInfo();
             GetOrientationSensorInfo();
             GetProximityInfo();
+            GetMemoryInfo();
             GetSDCardInfo();
             GetVibrationDeviceInfo();
             GetFMRadioInfo();
+            GetScreenResolution();
         }
 
         /// <summary>
@@ -305,5 +309,40 @@ namespace HardwareInfo
             }
         }
 
+        /// <summary>
+        /// Resolves the screen resolution.
+        /// </summary>
+        private void GetScreenResolution()
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                switch (App.Current.Host.Content.ScaleFactor)
+                {
+                    case 100:
+                        {
+                            // Wide VGA, 480x800
+                            ScreenResolution = "WVGA, 480x800";
+                            break;
+                        }
+                    case 150:
+                        {
+                            // HD, 720x1280
+                            ScreenResolution = "HD, 720x1280";
+                            break;
+                        }
+                    case 160:
+                        {
+                            // Wide Extended Graphics Array (WXGA), 768x1280
+                            ScreenResolution = "WXGA, 768x1280";
+                            break;
+                        }
+                    default:
+                        {
+                            ScreenResolution = "Unknown";
+                            break;
+                        }
+                }
+            });
+        }
     }
 }

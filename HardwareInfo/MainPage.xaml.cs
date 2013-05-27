@@ -7,6 +7,7 @@ using Microsoft.Phone.Shell;
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ using System.Windows.Data;
 using System.Windows.Navigation;
 
 using HardwareInfo.Resources;
+using HardwareInfo.ViewModels;
+
 
 namespace HardwareInfo
 {
@@ -24,8 +27,23 @@ namespace HardwareInfo
     /// </summary>
     public partial class MainPage : PhoneApplicationPage
     {
+        // Constants
         private const int ProgressBarDelay = 2500; // Milliseconds
-        private HardwareInfoResolver hwInfo = null;
+
+        // Members
+        private HardwareInfoResolver _resolver = null;
+
+        public HardwareInfoResolver Resolver
+        {
+            get
+            {
+                return _resolver;
+            }
+            private set
+            {
+                _resolver = value;
+            }
+        }
 
         /// <summary>
         /// Constructor.
@@ -34,7 +52,8 @@ namespace HardwareInfo
         public MainPage()
         {
             InitializeComponent();
-            hwInfo = new HardwareInfoResolver();
+            DataContext = App.ViewModel;
+            Resolver = new HardwareInfoResolver();
             Loaded += MainPage_Loaded;
         }
 
@@ -45,9 +64,9 @@ namespace HardwareInfo
         /// <param name="e"></param>
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            await Task.Factory.StartNew(hwInfo.ResolveInfo);
+            await Task.Factory.StartNew(_resolver.ResolveInfo);
             System.Threading.Thread.Sleep(ProgressBarDelay);
-            ContentLayout.DataContext = hwInfo;
+            App.ViewModel.LoadData(ref _resolver);
             MyProgressBar.Visibility = Visibility.Collapsed;
         }
     }
