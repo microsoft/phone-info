@@ -13,11 +13,11 @@ corresponding APIs. The Characteristics view was added to version 1.1 and it
 provides the screen resolution of the phone and the amount of memory used and
 available for the application itself.
 
-This example application is hosted in Nokia Developer Projects:
-- https://projects.developer.nokia.com/hardware_info
+This example application is hosted in GitHub:
+https://github.com/nokia-developer/hardware-info
 
 For more information on the subject, visit Nokia Lumia Developer's Library:
-- https://www.developer.nokia.com/Resources/Library/Lumia/#!how-to-adapt-to-lumia-phone-hardware-features.html
+https://www.developer.nokia.com/Resources/Library/Lumia/#!how-to-adapt-to-lumia-phone-hardware-features.html
 
 
 1. Prerequisites
@@ -79,7 +79,7 @@ None.
 
 See the license text file delivered with this project. The license file is also
 available online at
-https://projects.developer.nokia.com/hardware_info/browser/hardware_info/Licence.txt
+https://github.com/nokia-developer/hardware-info/blob/master/Licence.txt
 
 
 5. Related documentation
@@ -93,5 +93,5 @@ Nokia Lumia Developer's Library:
 6. Version history
 -------------------------------------------------------------------------------
 
-1.1 Refactored the user interface. Characteristics view added.
-1.0 Initial release
+* Version 1.1: Refactored the user interface. Characteristics view added.
+* Version 1.0: The initial release.
