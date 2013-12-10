@@ -80,79 +80,85 @@ namespace HardwareInfo.ViewModels
         /// <summary>
         /// Sets the values of the items.
         /// </summary>
-        /// <param name="resolver">An instance of hardware resolver class.</param>
-        public void LoadData(ref HardwareInfoResolver resolver)
+        public void LoadData()
         {
+            DeviceProperties properties = DeviceProperties.GetInstance();
+
+            if (properties.Initialized == false)
+            {
+                return;
+            }
+
             foreach (ItemModel item in Items)
             {
                 if (item.HardwareFeatureText.Equals(AppResources.Accelerometer))
                 {
-                    item.BooleanValue = resolver.AccelerometerExists;
+                    item.BooleanValue = properties.HasAccelerometerSensor;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.PrimaryCamera))
                 {
-                    item.BooleanValue = resolver.BackCameraExists;
+                    item.BooleanValue = properties.HasBackCamera;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.PrimaryCameraFlash))
                 {
-                    item.BooleanValue = resolver.BackCameraFlashExists;
+                    item.BooleanValue = properties.HasBackCameraFlash;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.Compass))
                 {
-                    item.BooleanValue = resolver.CompassExists;
+                    item.BooleanValue = properties.HasCompass;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.FMRadio))
                 {
-                    item.BooleanValue = resolver.FMRadioExists;
+                    item.BooleanValue = properties.HasFMRadio;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.FrontCamera))
                 {
-                    item.BooleanValue = resolver.FrontCameraExists;
+                    item.BooleanValue = properties.HasFrontCamera;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.FrontCameraFlash))
                 {
-                    item.BooleanValue = resolver.FrontCameraFlashExists;
+                    item.BooleanValue = properties.HasFrontCameraFlash;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.Gyroscope))
                 {
-                    item.BooleanValue = resolver.GyroscopeExists;
+                    item.BooleanValue = properties.HasGyroscopeSensor;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.Inclinometer))
                 {
-                    item.BooleanValue = resolver.InclinometerExists;
+                    item.BooleanValue = properties.HasInclinometerSensor;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.MotionApi))
                 {
-                    item.BooleanValue = resolver.MotionApiAvailable;
+                    item.BooleanValue = properties.MotionApiAvailable;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.OrientationSensor))
                 {
-                    item.BooleanValue = resolver.OrientationSensorExists;
+                    item.BooleanValue = properties.HasOrientationSensor;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.NFC))
                 {
-                    item.BooleanValue = resolver.ProximityExists;
+                    item.BooleanValue = properties.HasProximitySensor;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.SDCard))
                 {
-                    item.BooleanValue = resolver.SDCardExists;
+                    item.BooleanValue = properties.HasSDCardPresent;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.VibrationDevice))
                 {
-                    item.BooleanValue = resolver.VibrationDeviceExists;
+                    item.BooleanValue = properties.HasVibrationDevice;
                 }
             }
 
-            ScreenResolution = resolver.ScreenResolution;
+            ScreenResolution = properties.ScreenResolution;
 
             try
             {
                 MemoryUsedInPercentages =
-                    (int)Math.Round(100 * Double.Parse(resolver.MemoryCurrentUsed)
-                    / Double.Parse(resolver.MemoryMaxAvailable));
+                    (int)Math.Round(100 * Double.Parse(properties.MemoryCurrentUsed)
+                    / Double.Parse(properties.MemoryMaxAvailable));
                 MemoryStatus =
-                    (int.Parse(resolver.MemoryCurrentUsed) / (1024 * 1024)) + " MB used of "
-                    + (int.Parse(resolver.MemoryMaxAvailable) / (1024 * 1024)) + " MB";
+                    (int.Parse(properties.MemoryCurrentUsed) / (1024 * 1024)) + " MB used of "
+                    + (int.Parse(properties.MemoryMaxAvailable) / (1024 * 1024)) + " MB";
             }
             catch (Exception)
             {

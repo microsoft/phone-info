@@ -30,30 +30,20 @@ namespace HardwareInfo
         // Constants
         private const int ProgressBarDelay = 2500; // Milliseconds
 
-        // Members
-        private HardwareInfoResolver _resolver = null;
-
-        public HardwareInfoResolver Resolver
+        public DeviceProperties Resolver
         {
-            get
-            {
-                return _resolver;
-            }
-            private set
-            {
-                _resolver = value;
-            }
+            get;
+            private set;
         }
 
         /// <summary>
         /// Constructor.
-        /// 构造函数
         /// </summary>
         public MainPage()
         {
             InitializeComponent();
             DataContext = App.ViewModel;
-            Resolver = new HardwareInfoResolver();
+            Resolver = DeviceProperties.GetInstance();
             Loaded += MainPage_Loaded;
         }
 
@@ -64,9 +54,9 @@ namespace HardwareInfo
         /// <param name="e"></param>
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            await Task.Factory.StartNew(_resolver.ResolveInfo);
+            await Task.Factory.StartNew(Resolver.Init);
             System.Threading.Thread.Sleep(ProgressBarDelay);
-            App.ViewModel.LoadData(ref _resolver);
+            App.ViewModel.LoadData();
             MyProgressBar.Visibility = Visibility.Collapsed;
         }
     }

@@ -93,7 +93,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="BooleanToIconUriConverter.cs" />
-    <Compile Include="HardwareInfoResolver.cs" />
+    <Compile Include="DeviceProperties.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
