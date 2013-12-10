@@ -149,7 +149,7 @@ namespace HardwareInfo.ViewModels
                 }
             }
 
-            ScreenResolution = properties.ScreenResolution;
+            ScreenResolution = properties.ScreenResolution.ToString();
 
             try
             {

@@ -1,20 +1,21 @@
 ﻿/**
  * Copyright (c) 2013 Nokia Corporation.
+ * See the license text file for the license information.
  */
 
 namespace HardwareInfo
 {
     using Microsoft.Devices.Radio;
+    using Microsoft.Phone.Info;
     using Microsoft.Phone.Storage;
-
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Media;
     using System.Windows.Threading;
-
     using Windows.Devices.Sensors;
     using Windows.Networking.Proximity;
     using Windows.Phone.Media.Capture;
@@ -22,17 +23,29 @@ namespace HardwareInfo
 
     /// <summary>
     /// This class implements methods to resolve harware supported by the
-    /// device. Note that you need to make sure that the application has
-    /// enough capabilites enabled for the implementation to work properly.
+    /// phone and details about the phone software. In addition, the dynamic
+    /// traits of the phone are resolved. The resolved values are stored in
+    /// the class properties enabling fast queries.
     /// 
-    /// For more information about sensors on Windows Phone, see
-    /// http://msdn.microsoft.com/en-us/library/windowsphone/develop/hh202968%28v=vs.105%29.aspx
+    /// Note that you need to make sure that the application has enough
+    /// capabilites enabled for the implementation to work properly.
+    /// 
+    /// For more information, see
+    ///  - Sensors: http://msdn.microsoft.com/en-us/library/windowsphone/develop/hh202968%28v=vs.105%29.aspx
+    ///  - Device status properties: http://msdn.microsoft.com/en-us/library/windowsphone/develop/microsoft.phone.info.devicestatus_properties%28v=vs.105%29.aspx
+    ///  - Device extended properties: http://msdn.microsoft.com/EN-US/library/windowsphone/develop/microsoft.phone.info.deviceextendedproperties%28v=vs.105%29.aspx
+    ///
     /// </summary>
     public class DeviceProperties
     {
         private static DeviceProperties _instance = null;
+        private SolidColorBrush _themeBackgroundBrush = null;
 
         public bool Initialized { get; private set; }
+
+        // Battery and power
+        public bool HasBatteryStatusInfo { get; private set; }
+        public bool IsConnectedToExternalPowerSupply { get; private set; }
 
         // Cameras and flashes
         public bool HasBackCamera { get; private set; }
@@ -41,11 +54,15 @@ namespace HardwareInfo
         public bool HasFrontCameraFlash { get; private set; }
 
         // Memory
-        public string MemoryCurrentUsed { get; private set; }
-        public string MemoryMaxAvailable { get; private set; }                      
+        public String MemoryCurrentUsed { get; private set; }
+        public String MemoryMaxAvailable { get; private set; }
+        public long DeviceTotalMemoryInBytes { get; private set; }
 
         // Screen
-        public string ScreenResolution { get; private set; }
+        public Size ScreenResolution { get; private set; }
+        public Double RawDpiX { get; private set; }
+        public Double RawDpiY { get; private set; }
+        public Double ScreenSizeInInches { get; private set; } // E.g. 4.5 for Nokia Lumia 1020
 
         // Sensors
         public bool HasAccelerometerSensor { get; private set; }
@@ -57,18 +74,39 @@ namespace HardwareInfo
         public bool HasProximitySensor { get; private set; } // NFC
 
         // Other hardware properties
-        public bool HasBatteryStatusInfo { get; private set; }
         public bool HasFMRadio { get; private set; }
+        public String HardwareVersion { get; private set; }
+        public String Operator { get; private set; }
+        public String Manufacturer { get; private set; }
         public bool HasSDCardPresent { get; private set; }
         public bool HasVibrationDevice { get; private set; }
 
-        // TODO: Add info from: http://msdn.microsoft.com/EN-US/library/windowsphone/develop/microsoft.phone.info.deviceextendedproperties%28v=vs.105%29.aspx
-        // TODO: Add dynamic traits like theme etc.
+        // Software and other dynamic, non-hardware properties
+        public String FirmwareVersion { get; private set; }
+        public bool HasDarkUiThemeInUse { get; private set; }
+        public Color ThemeAccentColor { get; private set; }
+
+        // Utility
+
+        public SolidColorBrush ThemeBackgroundBrush
+        {
+            get
+            {
+                if (_themeBackgroundBrush == null)
+                {
+                    Color color = HasDarkUiThemeInUse ? Colors.Black : Colors.White;
+                    _themeBackgroundBrush = new SolidColorBrush(color);
+                }
+
+                return _themeBackgroundBrush;
+            }
+        }
+
+        #region Construction, initialisation and refreshing
 
         /// <summary>
-        /// 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The singleton instance of this class.</returns>
         public static DeviceProperties GetInstance()
         {
             if (_instance == null)
@@ -87,46 +125,117 @@ namespace HardwareInfo
         }
 
         /// <summary>
-        /// 
+        /// Resolves all the properties. Note that this method is synchronous
+        /// and may take from 0.5 up to several seconds to execute depending on
+        /// the device.
         /// </summary>
         public void Init()
         {
+#if (DEBUG)
+            System.Diagnostics.Debug.WriteLine("DeviceProperties.Init() ->");
+            DateTime before = DateTime.Now;
+#endif
             if (Initialized)
             {
                 System.Diagnostics.Debug.WriteLine("DeviceProperties instance already initialised!");
                 return;
             }
 
-#if (DEBUG)
-            DateTime before = DateTime.Now;
-#endif
+            // Hardware
+            ResolveBatteryStatusInfo();
+            ResolvePowerSource();
             ResolveCameraAndFlashInfo();
             ResolveMemoryInfo();
             ResolveScreenResolution();
             ResolveSensorInfo();
-            ResolveBatteryStatusInfo();
             ResolveFMRadioInfo();
+            ResolveHardwareVersion();
+            ResolveManufacturer();
+            ResolveOperator();
             ResolveSDCardInfo();
             ResolveVibrationDeviceInfo();
+
+            // Software
+            ResolveFirmwareVersion();
+            ResolveUiTheme();
 #if (DEBUG)
-            System.Diagnostics.Debug.WriteLine(DateTime.Now - before);
+            System.Diagnostics.Debug.WriteLine("DeviceProperties.Init() <- Duration: " + (DateTime.Now - before));
 #endif
             Initialized = true;
         }
 
         /// <summary>
-        /// 
+        /// For convenience. Runs Init() asynchronously.
         /// </summary>
         public async void InitAsync()
         {
             await Task.Run(() => Init());
         }
 
+        /// <summary>
+        /// Refreshes the properties which can change.
+        /// </summary>
+        public void Refresh()
+        {
+            Initialized = false;
+#if (DEBUG)
+            System.Diagnostics.Debug.WriteLine("DeviceProperties.Refresh() ->");
+            DateTime before = DateTime.Now;
+#endif
+            ResolveBatteryStatusInfo();
+            ResolvePowerSource();
+            ResolveMemoryInfo();
+            ResolveOperator();
+            ResolveSDCardInfo();
+
+            ResolveUiTheme();
+#if (DEBUG)
+            System.Diagnostics.Debug.WriteLine("DeviceProperties.Refresh() <- Duration: " + (DateTime.Now - before));
+#endif
+            Initialized = true;
+        }
+
+        /// <summary>
+        /// For convenience. Runs Refresh() asynchronously.
+        /// </summary>
+        public async void RefreshAsync()
+        {
+            await Task.Run(() => Refresh());
+        }
+
+        #endregion // Construction, initialisation and refreshing
+
+        #region Battery and power supply
+
+        private void ResolveBatteryStatusInfo()
+        {
+            HasBatteryStatusInfo = false;
+
+            if (Windows.Phone.Devices.Power.Battery.GetDefault() != null)
+            {
+                HasBatteryStatusInfo = true;
+            }
+        }
+
+        private void ResolvePowerSource()
+        {
+            /* PowerSource.Battery -> false
+             * PowerSource.External -> true (connected to external power supply)
+             */
+            IsConnectedToExternalPowerSupply = (DeviceStatus.PowerSource == PowerSource.External);
+        }
+
+        #endregion // Battery and power supply
 
         #region Cameras and flashes
 
         private void ResolveCameraAndFlashInfo()
         {
+            HasBackCamera = false;
+            HasFrontCamera = false;
+            HasBackCameraFlash = false;
+            HasFrontCameraFlash = false;
+
             try
             {
                 HasBackCamera = PhotoCaptureDevice.AvailableSensorLocations.Contains<CameraSensorLocation>(CameraSensorLocation.Back);
@@ -158,6 +267,26 @@ namespace HardwareInfo
         {
             MemoryCurrentUsed = Windows.Phone.System.Memory.MemoryManager.ProcessCommittedBytes.ToString();
             MemoryMaxAvailable = Windows.Phone.System.Memory.MemoryManager.ProcessCommittedLimit.ToString();
+
+            /* DeviceStatus class also provides information about memory, see
+             * http://msdn.microsoft.com/en-us/library/windowsphone/develop/microsoft.phone.info.devicestatus_properties(v=vs.105).aspx
+             * 
+             * The properties are:
+             *   - ApplicationCurrentMemoryUsage
+             *   - ApplicationMemoryUsageLimit
+             *   - ApplicationPeakMemoryUsage
+             *   - DeviceTotalMemory
+             */
+
+            DeviceTotalMemoryInBytes = DeviceStatus.DeviceTotalMemory;
+
+            System.Diagnostics.Debug.WriteLine(
+                "From DeviceStatus class:"
+                + "\n - ApplicationCurrentMemoryUsage: " + DeviceStatus.ApplicationCurrentMemoryUsage
+                + "\n - ApplicationMemoryUsageLimit: " + DeviceStatus.ApplicationMemoryUsageLimit
+                + "\n - ApplicationPeakMemoryUsage: " + DeviceStatus.ApplicationPeakMemoryUsage
+                + "\n - DeviceTotalMemory: " + DeviceTotalMemoryInBytes
+                );
         }
 
         #endregion // Memory
@@ -169,35 +298,39 @@ namespace HardwareInfo
         /// </summary>
         private void ResolveScreenResolution()
         {
+            // ScaleFactor can be used to find out the the screen resolution...
+            /*
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 switch (App.Current.Host.Content.ScaleFactor)
                 {
                     case 100:
-                        {
-                            // Wide VGA, 480x800
-                            ScreenResolution = "WVGA, 480x800";
-                            break;
-                        }
+                        // Wide VGA, 480x800
+                        ScreenResolution = "WVGA, 480x800";
+                        break;
                     case 150:
-                        {
-                            // HD, 720x1280
-                            ScreenResolution = "HD, 720x1280";
-                            break;
-                        }
+                        // HD, 720x1280
+                        ScreenResolution = "HD, 720x1280";
+                        break;
                     case 160:
-                        {
-                            // Wide Extended Graphics Array (WXGA), 768x1280
-                            ScreenResolution = "WXGA, 768x1280";
-                            break;
-                        }
+                        // Wide Extended Graphics Array (WXGA), 768x1280
+                        ScreenResolution = "WXGA, 768x1280";
+                        break;
                     default:
-                        {
-                            ScreenResolution = "Unknown";
-                            break;
-                        }
+                        ScreenResolution = "Unknown";
+                        break;
                 }
             });
+            */
+
+            // ...as well as DeviceExtendedProperties:
+            ScreenResolution = (Size)DeviceExtendedProperties.GetValue("PhysicalScreenResolution");
+
+            RawDpiX = (Double)DeviceExtendedProperties.GetValue("RawDpiX");
+            RawDpiY = (Double)DeviceExtendedProperties.GetValue("RawDpiY");
+
+            // TODO: Calc screen size in inches
+
         }
 
         #endregion // Screen
@@ -254,21 +387,11 @@ namespace HardwareInfo
             {
                 HasProximitySensor = true;
             }
-
-
         }
 
         #endregion
 
         #region Others
-
-        private void ResolveBatteryStatusInfo()
-        {
-            if (Windows.Phone.Devices.Power.Battery.GetDefault() != null)
-            {
-                HasBatteryStatusInfo = true;
-            }
-        }
 
         private void ResolveFMRadioInfo()
         {
@@ -281,6 +404,21 @@ namespace HardwareInfo
             {
                 // No radio
             }
+        }
+
+        private void ResolveHardwareVersion()
+        {
+            HardwareVersion = DeviceStatus.DeviceHardwareVersion;
+        }
+
+        private void ResolveOperator()
+        {
+            Operator = (String)DeviceExtendedProperties.GetValue("OriginalMobileOperatorName");
+        }
+
+        private void ResolveManufacturer()
+        {
+            Manufacturer = DeviceStatus.DeviceManufacturer;
         }
 
         /// <summary>
@@ -302,5 +440,30 @@ namespace HardwareInfo
         }
 
         #endregion // Others
+
+        #region Software, themes and non-hardware dependent
+
+        private void ResolveFirmwareVersion()
+        {
+            FirmwareVersion = DeviceStatus.DeviceFirmwareVersion;
+        }
+
+        private void ResolveUiTheme()
+        {
+            Visibility darkBackgroundVisibility =
+                (Visibility)Application.Current.Resources["PhoneDarkThemeVisibility"];
+            HasDarkUiThemeInUse = (darkBackgroundVisibility == Visibility.Visible);
+
+            if (_themeBackgroundBrush != null)
+            {
+                // In case the theme color has been changed, the brush needs to
+                // be recreated
+                _themeBackgroundBrush = null;
+            }
+
+            ThemeAccentColor = (Color)Application.Current.Resources["PhoneAccentColor"];
+        }
+
+        #endregion // Software, themes and non-hardware dependent
     }
 }
