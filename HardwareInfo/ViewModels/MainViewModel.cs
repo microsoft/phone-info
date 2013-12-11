@@ -154,11 +154,15 @@ namespace HardwareInfo.ViewModels
             try
             {
                 MemoryUsedInPercentages =
-                    (int)Math.Round(100 * Double.Parse(properties.MemoryCurrentUsed)
-                    / Double.Parse(properties.MemoryMaxAvailable));
+                    (int)Math.Round((double)(100 * properties.ApplicationCurrentMemoryUsageInBytes
+                    / properties.ApplicationMemoryUsageLimitInBytes));
                 MemoryStatus =
-                    (int.Parse(properties.MemoryCurrentUsed) / (1024 * 1024)) + " MB used of "
-                    + (int.Parse(properties.MemoryMaxAvailable) / (1024 * 1024)) + " MB";
+                    DeviceProperties.TransformBytes(properties.ApplicationCurrentMemoryUsageInBytes, DeviceProperties.UnitPrefixes.Mega, 1)
+                    + " MB used of "
+                    + DeviceProperties.TransformBytes(properties.ApplicationMemoryUsageLimitInBytes, DeviceProperties.UnitPrefixes.Mega, 1)
+                    + " MB. App peaked at "
+                    + DeviceProperties.TransformBytes(properties.ApplicationPeakMemoryUsageInBytes, DeviceProperties.UnitPrefixes.Mega, 1)
+                    + " MB.";
             }
             catch (Exception)
             {

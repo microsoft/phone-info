@@ -35,7 +35,7 @@
         <src:BooleanToIconUriConverter x:Key="IconUriConverter" />
     </phone:PhoneApplicationPage.Resources>
     
-    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <!--LayoutRoot -->
     <Grid x:Name="LayoutRoot">
         <Grid.Background>
             <ImageBrush ImageSource="Assets/Images/Background.png"></ImageBrush>            
@@ -51,10 +51,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock FontWeight="Bold">
-                <Run Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" />
-                <Run Text="{Binding Path=LocalizedResources.VersionNumberString, Source={StaticResource LocalizedStrings}}" />
-            </TextBlock>
+            <TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitleUpper, Source={StaticResource LocalizedStrings}}" />
         </StackPanel>
         
         <!-- Pivot control -->

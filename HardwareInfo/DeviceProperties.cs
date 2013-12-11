@@ -38,6 +38,30 @@ namespace HardwareInfo
     /// </summary>
     public class DeviceProperties
     {
+        /*
+         * Data types
+         */
+
+        public enum Resolutions
+        {
+            WVGA, // Wide VGA, 480x800
+            HD720p, // HD, 720x1280
+            WXGA, // Wide Extended Graphics Array (WXGA), 768x1280
+            HD1080p, // Full HD, 1080x1920
+            Unknown
+        };
+
+        public enum UnitPrefixes
+        {
+            Kilo,
+            Mega,
+            Giga
+        };
+
+        /*
+         * Members and properties
+         */
+
         private static DeviceProperties _instance = null;
         private SolidColorBrush _themeBackgroundBrush = null;
 
@@ -54,12 +78,14 @@ namespace HardwareInfo
         public bool HasFrontCameraFlash { get; private set; }
 
         // Memory
-        public String MemoryCurrentUsed { get; private set; }
-        public String MemoryMaxAvailable { get; private set; }
+        public long ApplicationCurrentMemoryUsageInBytes { get; private set; }
+        public long ApplicationMemoryUsageLimitInBytes { get; private set; }
+        public long ApplicationPeakMemoryUsageInBytes { get; private set; }
         public long DeviceTotalMemoryInBytes { get; private set; }
 
         // Screen
-        public Size ScreenResolution { get; private set; }
+        public Resolutions ScreenResolution { get; private set; }
+        public Size ScreenResolutionSize { get; private set; }
         public Double RawDpiX { get; private set; }
         public Double RawDpiY { get; private set; }
         public Double ScreenSizeInInches { get; private set; } // E.g. 4.5 for Nokia Lumia 1020
@@ -265,28 +291,24 @@ namespace HardwareInfo
 
         private void ResolveMemoryInfo()
         {
-            MemoryCurrentUsed = Windows.Phone.System.Memory.MemoryManager.ProcessCommittedBytes.ToString();
-            MemoryMaxAvailable = Windows.Phone.System.Memory.MemoryManager.ProcessCommittedLimit.ToString();
-
-            /* DeviceStatus class also provides information about memory, see
-             * http://msdn.microsoft.com/en-us/library/windowsphone/develop/microsoft.phone.info.devicestatus_properties(v=vs.105).aspx
-             * 
-             * The properties are:
-             *   - ApplicationCurrentMemoryUsage
-             *   - ApplicationMemoryUsageLimit
-             *   - ApplicationPeakMemoryUsage
-             *   - DeviceTotalMemory
-             */
-
+            ApplicationCurrentMemoryUsageInBytes = DeviceStatus.ApplicationCurrentMemoryUsage;
+            ApplicationMemoryUsageLimitInBytes = DeviceStatus.ApplicationMemoryUsageLimit;
+            ApplicationPeakMemoryUsageInBytes = DeviceStatus.ApplicationPeakMemoryUsage;
             DeviceTotalMemoryInBytes = DeviceStatus.DeviceTotalMemory;
 
+            // The following properties also work:
+            //ApplicationCurrentMemoryUsageInBytes = (long)Windows.Phone.System.Memory.MemoryManager.ProcessCommittedBytes;
+            //ApplicationMemoryUsageLimitInBytes = (long)Windows.Phone.System.Memory.MemoryManager.ProcessCommittedLimit;
+
+#if (DEBUG)
             System.Diagnostics.Debug.WriteLine(
                 "From DeviceStatus class:"
-                + "\n - ApplicationCurrentMemoryUsage: " + DeviceStatus.ApplicationCurrentMemoryUsage
-                + "\n - ApplicationMemoryUsageLimit: " + DeviceStatus.ApplicationMemoryUsageLimit
-                + "\n - ApplicationPeakMemoryUsage: " + DeviceStatus.ApplicationPeakMemoryUsage
-                + "\n - DeviceTotalMemory: " + DeviceTotalMemoryInBytes
+                + "\n - ApplicationCurrentMemoryUsage: " + TransformBytes(ApplicationCurrentMemoryUsageInBytes, UnitPrefixes.Mega, 1) + " MB"
+                + "\n - ApplicationMemoryUsageLimit: " + TransformBytes(ApplicationMemoryUsageLimitInBytes, UnitPrefixes.Mega, 1) + " MB"
+                + "\n - ApplicationPeakMemoryUsage: " + TransformBytes(ApplicationPeakMemoryUsageInBytes, UnitPrefixes.Mega, 1) + " MB"
+                + "\n - DeviceTotalMemory: " + TransformBytes(DeviceTotalMemoryInBytes, UnitPrefixes.Mega, 1) + " MB"
                 );
+#endif
         }
 
         #endregion // Memory
@@ -298,39 +320,79 @@ namespace HardwareInfo
         /// </summary>
         private void ResolveScreenResolution()
         {
-            // ScaleFactor can be used to find out the the screen resolution...
-            /*
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            // Initialise the values
+            ScreenResolution = Resolutions.Unknown;
+            ScreenResolutionSize = new Size(0, 0);
+            RawDpiX = 0;
+            RawDpiY = 0;
+
+            try
             {
-                switch (App.Current.Host.Content.ScaleFactor)
+                ScreenResolutionSize = (Size)DeviceExtendedProperties.GetValue("PhysicalScreenResolution");
+
+                if (ScreenResolutionSize.Width == 1080)
                 {
-                    case 100:
-                        // Wide VGA, 480x800
-                        ScreenResolution = "WVGA, 480x800";
-                        break;
-                    case 150:
-                        // HD, 720x1280
-                        ScreenResolution = "HD, 720x1280";
-                        break;
-                    case 160:
-                        // Wide Extended Graphics Array (WXGA), 768x1280
-                        ScreenResolution = "WXGA, 768x1280";
-                        break;
-                    default:
-                        ScreenResolution = "Unknown";
-                        break;
+                    ScreenResolution = Resolutions.HD1080p;
                 }
-            });
-            */
 
-            // ...as well as DeviceExtendedProperties:
-            ScreenResolution = (Size)DeviceExtendedProperties.GetValue("PhysicalScreenResolution");
+            }
+            catch (Exception)
+            {
+                // Failed to resolve the screen resolution
+            }
 
-            RawDpiX = (Double)DeviceExtendedProperties.GetValue("RawDpiX");
-            RawDpiY = (Double)DeviceExtendedProperties.GetValue("RawDpiY");
+            if (ScreenResolution == Resolutions.Unknown)
+            {
+                /* Since the screen resolution could not be resolved via
+                /* DeviceExtendedProperties, let's use the scale factor
+                /* instead.
+                 */
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    switch (App.Current.Host.Content.ScaleFactor)
+                    {
+                        case 100:
+                            ScreenResolution = Resolutions.WVGA;
+                            ScreenResolutionSize = new Size(480, 800);
+                            break;
+                        case 150:
+                            ScreenResolution = Resolutions.HD720p;
+                            ScreenResolutionSize = new Size(720, 1280);
+                            break;
+                        case 160:
+                            ScreenResolution = Resolutions.WXGA;
+                            ScreenResolutionSize = new Size(768, 1280);
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }
 
-            // TODO: Calc screen size in inches
+            try
+            {
+                RawDpiX = (Double)DeviceExtendedProperties.GetValue("RawDpiX");
+                RawDpiY = (Double)DeviceExtendedProperties.GetValue("RawDpiY");
+            }
+            catch (Exception)
+            {
+            }
 
+            if (RawDpiX > 0 && RawDpiY > 0)
+            {
+                // Calculate screen diagonal in inches.
+                ScreenSizeInInches =
+                    Math.Sqrt(Math.Pow(ScreenResolutionSize.Width / RawDpiX, 2) +
+                              Math.Pow(ScreenResolutionSize.Height / RawDpiY, 2));
+                ScreenSizeInInches = Math.Round(ScreenSizeInInches, 1); // One decimal is enough
+            }
+
+            System.Diagnostics.Debug.WriteLine("Screen properties:"
+                + "\n - Resolution: " + ScreenResolution
+                + "\n - Resolution in pixels: " + ScreenResolutionSize
+                + "\n - Raw DPI: " + RawDpiX + ", " + RawDpiY
+                + "\n - Screen size: " + ScreenSizeInInches + " inches"
+                ); 
         }
 
         #endregion // Screen
@@ -450,20 +512,67 @@ namespace HardwareInfo
 
         private void ResolveUiTheme()
         {
-            Visibility darkBackgroundVisibility =
-                (Visibility)Application.Current.Resources["PhoneDarkThemeVisibility"];
-            HasDarkUiThemeInUse = (darkBackgroundVisibility == Visibility.Visible);
-
-            if (_themeBackgroundBrush != null)
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                // In case the theme color has been changed, the brush needs to
-                // be recreated
-                _themeBackgroundBrush = null;
-            }
+                Visibility darkBackgroundVisibility =
+                    (Visibility)Application.Current.Resources["PhoneDarkThemeVisibility"];
+                HasDarkUiThemeInUse = (darkBackgroundVisibility == Visibility.Visible);
 
-            ThemeAccentColor = (Color)Application.Current.Resources["PhoneAccentColor"];
+                if (_themeBackgroundBrush != null)
+                {
+                    // In case the theme color has been changed, the brush needs to
+                    // be recreated
+                    _themeBackgroundBrush = null;
+                }
+
+                ThemeAccentColor = (Color)Application.Current.Resources["PhoneAccentColor"];
+            });
         }
 
         #endregion // Software, themes and non-hardware dependent
+
+        #region Utility methods
+
+        /// <summary>
+        /// Transforms the given bytes based on the given desired unit.
+        /// </summary>
+        /// <param name="bytes">The number of bytes to transform.</param>
+        /// <param name="toUnit">The unit into which to transform, e.g. gigabytes.</param>
+        /// <param name="numberOfDecimals">The number of decimals desired.</param>
+        /// <returns></returns>
+        public static double TransformBytes(long bytes, UnitPrefixes toUnit, int numberOfDecimals = 0)
+        {
+            double retval = 0;
+            double denominator = 0;
+
+            switch (toUnit)
+            {
+                case UnitPrefixes.Kilo:
+                    denominator = 1024;
+                    break;
+                case UnitPrefixes.Mega:
+                    denominator = 1024 * 1024;
+                    break;
+                case UnitPrefixes.Giga:
+                    denominator = Math.Pow(1024, 3);
+                    break;
+                default:
+                    break;
+            }
+
+            if (denominator != 0)
+            {
+                retval = bytes / denominator;
+            }
+
+            if (numberOfDecimals >= 0)
+            {
+                retval = Math.Round(retval, numberOfDecimals);
+            }
+
+            return retval;
+        }
+
+        #endregion // Utility methods
     }
 }

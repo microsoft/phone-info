@@ -6,7 +6,7 @@
     <Language code="en" />
     <Language code="zh-CN" />
   </Languages>
-  <App xmlns="" ProductID="{530da7b7-e7ee-4b1e-99a2-ab28e0c54782}" Title="Hardware Info" RuntimeType="Silverlight" Version="1.1.0.0" Genre="apps.normal" Author="Nokia" Description="A simple example application demonstrating how to resolve certain hardware specifications in runtime." Publisher="Nokia" PublisherID="{316924b3-f818-40f1-873e-aa8a34d085d7}">
+  <App xmlns="" ProductID="{530da7b7-e7ee-4b1e-99a2-ab28e0c54782}" Title="Phone Info" RuntimeType="Silverlight" Version="1.2.0.0" Genre="apps.normal" Author="Nokia" Description="A simple example application demonstrating how to resolve certain static and dynamic device properties and specifications in runtime." Publisher="Nokia Developer" PublisherID="{316924b3-f818-40f1-873e-aa8a34d085d7}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_ISV_CAMERA" />
@@ -23,7 +23,7 @@
           <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>Hardware Info</Title>
+          <Title>Phone Info</Title>
           <BackContent>
           </BackContent>
           <BackBackgroundImageURI>
