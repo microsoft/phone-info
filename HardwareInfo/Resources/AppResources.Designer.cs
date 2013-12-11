@@ -115,29 +115,38 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Availability.
+        ///   Looks up a localized string similar to App memory.
         /// </summary>
-        public static string AvailabilityTitle {
+        public static string AppMemory {
             get {
-                return ResourceManager.GetString("AvailabilityTitle", resourceCulture);
+                return ResourceManager.GetString("AppMemory", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Battery sensor.
+        ///   Looks up a localized string similar to App memory peaked at.
         /// </summary>
-        public static string BatterySensor {
+        public static string AppMemoryPeakedAt {
             get {
-                return ResourceManager.GetString("BatterySensor", resourceCulture);
+                return ResourceManager.GetString("AppMemoryPeakedAt", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Characteristics.
+        ///   Looks up a localized string similar to Battery status information.
         /// </summary>
-        public static string CharacteristicsTitle {
+        public static string BatteryStatusInfo {
             get {
-                return ResourceManager.GetString("CharacteristicsTitle", resourceCulture);
+                return ResourceManager.GetString("BatteryStatusInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cams &amp; sensors.
+        /// </summary>
+        public static string CamerasAndSensorsTitle {
+            get {
+                return ResourceManager.GetString("CamerasAndSensorsTitle", resourceCulture);
             }
         }
         
@@ -156,6 +165,33 @@ namespace HardwareInfo.Resources {
         public static string Compass {
             get {
                 return ResourceManager.GetString("Compass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to currently in use of.
+        /// </summary>
+        public static string CurrentlyInUseOf {
+            get {
+                return ResourceManager.GetString("CurrentlyInUseOf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device total memory.
+        /// </summary>
+        public static string DeviceTotalMemory {
+            get {
+                return ResourceManager.GetString("DeviceTotalMemory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display size.
+        /// </summary>
+        public static string DisplaySize {
+            get {
+                return ResourceManager.GetString("DisplaySize", resourceCulture);
             }
         }
         
@@ -187,6 +223,15 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string GeneralTitle {
+            get {
+                return ResourceManager.GetString("GeneralTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gyroscope.
         /// </summary>
         public static string Gyroscope {
@@ -196,20 +241,20 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to inches.
+        /// </summary>
+        public static string Inches {
+            get {
+                return ResourceManager.GetString("Inches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inclinometer.
         /// </summary>
         public static string Inclinometer {
             get {
                 return ResourceManager.GetString("Inclinometer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to App memory.
-        /// </summary>
-        public static string Memory {
-            get {
-                return ResourceManager.GetString("Memory", resourceCulture);
             }
         }
         
@@ -250,6 +295,24 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Others.
+        /// </summary>
+        public static string OthersTitle {
+            get {
+                return ResourceManager.GetString("OthersTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pixels.
+        /// </summary>
+        public static string Pixels {
+            get {
+                return ResourceManager.GetString("Pixels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back camera.
         /// </summary>
         public static string PrimaryCamera {
@@ -282,6 +345,15 @@ namespace HardwareInfo.Resources {
         public static string ResourceLanguage {
             get {
                 return ResourceManager.GetString("ResourceLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Screen/display.
+        /// </summary>
+        public static string ScreenDisplay {
+            get {
+                return ResourceManager.GetString("ScreenDisplay", resourceCulture);
             }
         }
         

@@ -18,7 +18,8 @@ namespace HardwareInfo.ViewModels
         /// <summary>
         /// A collection for ItemViewModel objects.
         /// </summary>
-        public ObservableCollection<ItemModel> Items { get; private set; }
+        public ObservableCollection<BoolItemModel> CameraAndSensorItems { get; private set; }
+        public ObservableCollection<BoolItemModel> OtherItems { get; private set; }
 
         public bool IsDataLoaded
         {
@@ -26,8 +27,8 @@ namespace HardwareInfo.ViewModels
             private set;
         }
 
-        private string _screenResolution;
-        public string ScreenResolution
+        private String _screenResolution;
+        public String ScreenResolution
         {
             get
             {
@@ -37,6 +38,34 @@ namespace HardwareInfo.ViewModels
             {
                 _screenResolution = value;
                 NotifyPropertyChanged("ScreenResolution");
+            }
+        }
+
+        private String _displaySize;
+        public String DisplaySize
+        {
+            get
+            {
+                return _displaySize;
+            }
+            private set
+            {
+                _displaySize = value;
+                NotifyPropertyChanged("DisplaySize");
+            }
+        }
+
+        private String _deviceTotalMemory;
+        public String DeviceTotalMemory
+        {
+            get
+            {
+                return _deviceTotalMemory;
+            }
+            private set
+            {
+                _deviceTotalMemory = value;
+                NotifyPropertyChanged("DeviceTotalMemory");
             }
         }
 
@@ -54,8 +83,8 @@ namespace HardwareInfo.ViewModels
             }
         }
 
-        private string _memoryStatus;
-        public string MemoryStatus
+        private String _memoryStatus;
+        public String MemoryStatus
         {
             get
             {
@@ -68,12 +97,27 @@ namespace HardwareInfo.ViewModels
             }
         }
 
+        private String _appMemoryPeak;
+        public String AppMemoryPeak
+        {
+            get
+            {
+                return _appMemoryPeak;
+            }
+            set
+            {
+                _appMemoryPeak = value;
+                NotifyPropertyChanged("AppMemoryPeak");
+            }
+        }
+
         /// <summary>
         /// Constructor.
         /// </summary>
         public MainViewModel()
         {
-            Items = new ObservableCollection<ItemModel>();
+            CameraAndSensorItems = new ObservableCollection<BoolItemModel>();
+            OtherItems = new ObservableCollection<BoolItemModel>();
             CreateItems();
         }
 
@@ -89,7 +133,7 @@ namespace HardwareInfo.ViewModels
                 return;
             }
 
-            foreach (ItemModel item in Items)
+            foreach (BoolItemModel item in CameraAndSensorItems)
             {
                 if (item.HardwareFeatureText.Equals(AppResources.Accelerometer))
                 {
@@ -149,7 +193,21 @@ namespace HardwareInfo.ViewModels
                 }
             }
 
-            ScreenResolution = properties.ScreenResolution.ToString();
+            ScreenResolution = AppResources.ScreenResolution + ": "
+                + properties.ScreenResolution.ToString() + ", "
+                + properties.ScreenResolutionSize.Width + "x" + properties.ScreenResolutionSize.Height
+                + " " + AppResources.Pixels;
+
+            if (properties.ScreenSizeInInches > 0)
+            {
+                DisplaySize = AppResources.DisplaySize + ": "
+                    + properties.ScreenSizeInInches + " "
+                    + AppResources.Inches;
+            }
+            else
+            {
+                DisplaySize = AppResources.DisplaySize + ": " + AppResources.NotAvailable;
+            }
 
             try
             {
@@ -158,15 +216,41 @@ namespace HardwareInfo.ViewModels
                     / properties.ApplicationMemoryUsageLimitInBytes));
                 MemoryStatus =
                     DeviceProperties.TransformBytes(properties.ApplicationCurrentMemoryUsageInBytes, DeviceProperties.UnitPrefixes.Mega, 1)
-                    + " MB used of "
+                    + " MB " + AppResources.CurrentlyInUseOf + " "
                     + DeviceProperties.TransformBytes(properties.ApplicationMemoryUsageLimitInBytes, DeviceProperties.UnitPrefixes.Mega, 1)
-                    + " MB. App peaked at "
-                    + DeviceProperties.TransformBytes(properties.ApplicationPeakMemoryUsageInBytes, DeviceProperties.UnitPrefixes.Mega, 1)
-                    + " MB.";
+                    + " MB";
             }
             catch (Exception)
             {
                 MemoryStatus = AppResources.NotAvailable;
+            }
+
+            try
+            {
+                AppMemoryPeak = AppResources.AppMemoryPeakedAt + " "
+                    + DeviceProperties.TransformBytes(properties.ApplicationPeakMemoryUsageInBytes, DeviceProperties.UnitPrefixes.Mega, 1)
+                    + " MB";
+            }
+            catch (Exception)
+            {
+            }
+
+            DeviceTotalMemory = DeviceProperties.TransformBytes(properties.DeviceTotalMemoryInBytes, DeviceProperties.UnitPrefixes.Mega, 0) + " MB";
+
+            foreach (BoolItemModel item in OtherItems)
+            {
+                if (item.HardwareFeatureText.Equals(AppResources.FMRadio))
+                {
+                    item.BooleanValue = properties.HasFMRadio;
+                }
+                else if (item.HardwareFeatureText.Equals(AppResources.SDCard))
+                {
+                    item.BooleanValue = properties.HasSDCardPresent;
+                }
+                else if (item.HardwareFeatureText.Equals(AppResources.VibrationDevice))
+                {
+                    item.BooleanValue = properties.HasVibrationDevice;
+                }
             }
 
             IsDataLoaded = true;
@@ -177,22 +261,24 @@ namespace HardwareInfo.ViewModels
         /// </summary>
         private void CreateItems()
         {
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Accelerometer });
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.PrimaryCamera });
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.PrimaryCameraFlash });
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Compass });
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.FMRadio });
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.FrontCamera });
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.FrontCameraFlash });
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Gyroscope });
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Inclinometer });
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.MotionApi });
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.OrientationSensor });
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.NFC });
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.SDCard });
-            Items.Add(new ItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.VibrationDevice });
-            
+            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Accelerometer });
+            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.PrimaryCamera });
+            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.PrimaryCameraFlash });
+            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Compass });
+            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.FrontCamera });
+            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.FrontCameraFlash });
+            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Gyroscope });
+            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Inclinometer });
+            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.MotionApi });
+            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.OrientationSensor });
+            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.NFC });
+
+            OtherItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.FMRadio });
+            OtherItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.SDCard });
+            OtherItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.VibrationDevice });
+
             ScreenResolution = AppResources.Waiting;
+            DeviceTotalMemory = AppResources.Waiting;
             MemoryStatus = AppResources.Waiting;
         }
 

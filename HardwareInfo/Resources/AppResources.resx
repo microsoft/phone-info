@@ -137,8 +137,8 @@
   <data name="Accelerometer" xml:space="preserve">
     <value>Accelerometer</value>
   </data>
-  <data name="BatterySensor" xml:space="preserve">
-    <value>Battery sensor</value>
+  <data name="BatteryStatusInfo" xml:space="preserve">
+    <value>Battery status information</value>
   </data>
   <data name="CheckHWText" xml:space="preserve">
     <value>Resolve hardware information</value>
@@ -182,13 +182,7 @@
   <data name="FMRadio" xml:space="preserve">
     <value>FM Radio</value>
   </data>
-  <data name="AvailabilityTitle" xml:space="preserve">
-    <value>Availability</value>
-  </data>
-  <data name="CharacteristicsTitle" xml:space="preserve">
-    <value>Characteristics</value>
-  </data>
-  <data name="Memory" xml:space="preserve">
+  <data name="AppMemory" xml:space="preserve">
     <value>App memory</value>
   </data>
   <data name="ScreenResolution" xml:space="preserve">
@@ -205,6 +199,36 @@
   </data>
   <data name="ApplicationTitleUpper" xml:space="preserve">
     <value>PHONE INFO</value>
+  </data>
+  <data name="AppMemoryPeakedAt" xml:space="preserve">
+    <value>App memory peaked at</value>
+  </data>
+  <data name="CamerasAndSensorsTitle" xml:space="preserve">
+    <value>Cams &amp; sensors</value>
+  </data>
+  <data name="CurrentlyInUseOf" xml:space="preserve">
+    <value>currently in use of</value>
+  </data>
+  <data name="DeviceTotalMemory" xml:space="preserve">
+    <value>Device total memory</value>
+  </data>
+  <data name="DisplaySize" xml:space="preserve">
+    <value>Display size</value>
+  </data>
+  <data name="GeneralTitle" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Inches" xml:space="preserve">
+    <value>inches</value>
+  </data>
+  <data name="OthersTitle" xml:space="preserve">
+    <value>Others</value>
+  </data>
+  <data name="Pixels" xml:space="preserve">
+    <value>pixels</value>
+  </data>
+  <data name="ScreenDisplay" xml:space="preserve">
+    <value>Screen/display</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>

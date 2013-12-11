@@ -17,7 +17,7 @@ namespace HardwareInfo.ViewModels
     /// <summary>
     /// Container class for the property values bound to the pivot view.
     /// </summary>
-    public class ItemModel : INotifyPropertyChanged
+    public class BoolItemModel : INotifyPropertyChanged
     {
         private bool _booleanValue;
         private string _textValue;

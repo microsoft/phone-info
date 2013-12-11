@@ -112,7 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.zh-CN.resx</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ItemModel.cs" />
+    <Compile Include="ViewModels\BoolItemModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
