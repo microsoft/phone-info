@@ -9,17 +9,13 @@ namespace HardwareInfo
     using Microsoft.Phone.Info;
     using Microsoft.Phone.Storage;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Media;
-    using System.Windows.Threading;
     using Windows.Devices.Sensors;
     using Windows.Networking.Proximity;
     using Windows.Phone.Media.Capture;
-    using Windows.Phone.Devices.Power;
 
     /// <summary>
     /// This class implements methods to resolve harware supported by the
@@ -38,6 +34,11 @@ namespace HardwareInfo
     /// </summary>
     public class DeviceProperties
     {
+        /*
+         * Constants
+         */
+        private const string DebugTag = "DeviceProperties";
+
         /*
          * Data types
          */
@@ -86,9 +87,9 @@ namespace HardwareInfo
         // Screen
         public Resolutions ScreenResolution { get; private set; }
         public Size ScreenResolutionSize { get; private set; }
-        public Double RawDpiX { get; private set; }
-        public Double RawDpiY { get; private set; }
-        public Double ScreenSizeInInches { get; private set; } // E.g. 4.5 for Nokia Lumia 1020
+        public double RawDpiX { get; private set; }
+        public double RawDpiY { get; private set; }
+        public double DisplaySizeInInches { get; private set; } // E.g. 4.5 for Nokia Lumia 1020
 
         // Sensors
         public bool HasAccelerometerSensor { get; private set; }
@@ -101,14 +102,14 @@ namespace HardwareInfo
 
         // Other hardware properties
         public bool HasFMRadio { get; private set; }
-        public String HardwareVersion { get; private set; }
-        public String Operator { get; private set; }
-        public String Manufacturer { get; private set; }
+        public string HardwareVersion { get; private set; }
+        public string Operator { get; private set; }
+        public string Manufacturer { get; private set; }
         public bool HasSDCardPresent { get; private set; }
         public bool HasVibrationDevice { get; private set; }
 
         // Software and other dynamic, non-hardware properties
-        public String FirmwareVersion { get; private set; }
+        public string FirmwareVersion { get; private set; }
         public bool HasDarkUiThemeInUse { get; private set; }
         public Color ThemeAccentColor { get; private set; }
 
@@ -135,9 +136,12 @@ namespace HardwareInfo
         /// <returns>The singleton instance of this class.</returns>
         public static DeviceProperties GetInstance()
         {
-            if (_instance == null)
+            lock("SingletonConstructorLock")
             {
-                _instance = new DeviceProperties();
+                if (_instance == null)
+                {
+                    _instance = new DeviceProperties();
+                }
             }
 
             return _instance;
@@ -158,7 +162,7 @@ namespace HardwareInfo
         public void Init()
         {
 #if (DEBUG)
-            System.Diagnostics.Debug.WriteLine("DeviceProperties.Init() ->");
+            System.Diagnostics.Debug.WriteLine(DebugTag + ".Init() ->");
             DateTime before = DateTime.Now;
 #endif
             if (Initialized)
@@ -185,7 +189,7 @@ namespace HardwareInfo
             ResolveFirmwareVersion();
             ResolveUiTheme();
 #if (DEBUG)
-            System.Diagnostics.Debug.WriteLine("DeviceProperties.Init() <- Duration: " + (DateTime.Now - before));
+            System.Diagnostics.Debug.WriteLine(DebugTag + ".Init() <- Duration: " + (DateTime.Now - before));
 #endif
             Initialized = true;
         }
@@ -205,7 +209,7 @@ namespace HardwareInfo
         {
             Initialized = false;
 #if (DEBUG)
-            System.Diagnostics.Debug.WriteLine("DeviceProperties.Refresh() ->");
+            System.Diagnostics.Debug.WriteLine(DebugTag + ".Refresh() ->");
             DateTime before = DateTime.Now;
 #endif
             ResolveBatteryStatusInfo();
@@ -216,7 +220,7 @@ namespace HardwareInfo
 
             ResolveUiTheme();
 #if (DEBUG)
-            System.Diagnostics.Debug.WriteLine("DeviceProperties.Refresh() <- Duration: " + (DateTime.Now - before));
+            System.Diagnostics.Debug.WriteLine(DebugTag + ".Refresh() <- Duration: " + (DateTime.Now - before));
 #endif
             Initialized = true;
         }
@@ -241,10 +245,18 @@ namespace HardwareInfo
             {
                 HasBatteryStatusInfo = true;
             }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine(DebugTag
+                    + ".ResolveBatteryStatusInfo(): No battery status info available.");
+            }
         }
 
         private void ResolvePowerSource()
         {
+            System.Diagnostics.Debug.WriteLine(DebugTag
+                + ".ResolvePowerSource(): " + DeviceStatus.PowerSource);
+
             /* PowerSource.Battery -> false
              * PowerSource.External -> true (connected to external power supply)
              */
@@ -267,9 +279,11 @@ namespace HardwareInfo
                 HasBackCamera = PhotoCaptureDevice.AvailableSensorLocations.Contains<CameraSensorLocation>(CameraSensorLocation.Back);
                 HasFrontCamera = PhotoCaptureDevice.AvailableSensorLocations.Contains<CameraSensorLocation>(CameraSensorLocation.Front);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                System.Diagnostics.Debug.WriteLine(DebugTag
+                    + ".ResolveCameraAndFlashInfo(): Failed to resolve the camera availability: "
+                    + e.ToString());
             }
 
             if (HasBackCamera)
@@ -300,7 +314,6 @@ namespace HardwareInfo
             //ApplicationCurrentMemoryUsageInBytes = (long)Windows.Phone.System.Memory.MemoryManager.ProcessCommittedBytes;
             //ApplicationMemoryUsageLimitInBytes = (long)Windows.Phone.System.Memory.MemoryManager.ProcessCommittedLimit;
 
-#if (DEBUG)
             System.Diagnostics.Debug.WriteLine(
                 "From DeviceStatus class:"
                 + "\n - ApplicationCurrentMemoryUsage: " + TransformBytes(ApplicationCurrentMemoryUsageInBytes, UnitPrefixes.Mega, 1) + " MB"
@@ -308,7 +321,6 @@ namespace HardwareInfo
                 + "\n - ApplicationPeakMemoryUsage: " + TransformBytes(ApplicationPeakMemoryUsageInBytes, UnitPrefixes.Mega, 1) + " MB"
                 + "\n - DeviceTotalMemory: " + TransformBytes(DeviceTotalMemoryInBytes, UnitPrefixes.Mega, 1) + " MB"
                 );
-#endif
         }
 
         #endregion // Memory
@@ -336,20 +348,22 @@ namespace HardwareInfo
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // Failed to resolve the screen resolution
+                System.Diagnostics.Debug.WriteLine(DebugTag
+                    + ".ResolveScreenResolution(): Failed to resolve the screen resolution size via DeviceExtendedProperties: "
+                    + e.ToString());
             }
 
             if (ScreenResolution == Resolutions.Unknown)
             {
                 /* Since the screen resolution could not be resolved via
-                /* DeviceExtendedProperties, let's use the scale factor
-                /* instead.
+                 * DeviceExtendedProperties, let's use the scale factor
+                 * instead.
                  */
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                Deployment.Current.Dispatcher.BeginInvoke(delegate()
                 {
-                    switch (App.Current.Host.Content.ScaleFactor)
+                    switch (Application.Current.Host.Content.ScaleFactor)
                     {
                         case 100:
                             ScreenResolution = Resolutions.WVGA;
@@ -371,27 +385,30 @@ namespace HardwareInfo
 
             try
             {
-                RawDpiX = (Double)DeviceExtendedProperties.GetValue("RawDpiX");
-                RawDpiY = (Double)DeviceExtendedProperties.GetValue("RawDpiY");
+                RawDpiX = (double)DeviceExtendedProperties.GetValue("RawDpiX");
+                RawDpiY = (double)DeviceExtendedProperties.GetValue("RawDpiY");
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(DebugTag
+                    + ".ResolveScreenResolution(): Failed to resolve the screen DPI values via DeviceExtendedProperties: "
+                    + e.ToString());
             }
 
             if (RawDpiX > 0 && RawDpiY > 0)
             {
                 // Calculate screen diagonal in inches.
-                ScreenSizeInInches =
+                DisplaySizeInInches =
                     Math.Sqrt(Math.Pow(ScreenResolutionSize.Width / RawDpiX, 2) +
                               Math.Pow(ScreenResolutionSize.Height / RawDpiY, 2));
-                ScreenSizeInInches = Math.Round(ScreenSizeInInches, 1); // One decimal is enough
+                DisplaySizeInInches = Math.Round(DisplaySizeInInches, 1); // One decimal is enough
             }
 
             System.Diagnostics.Debug.WriteLine("Screen properties:"
                 + "\n - Resolution: " + ScreenResolution
                 + "\n - Resolution in pixels: " + ScreenResolutionSize
                 + "\n - Raw DPI: " + RawDpiX + ", " + RawDpiY
-                + "\n - Screen size: " + ScreenSizeInInches + " inches"
+                + "\n - Screen size: " + DisplaySizeInInches + " inches"
                 ); 
         }
 
@@ -462,9 +479,11 @@ namespace HardwareInfo
                 var radio = FMRadio.Instance;
                 HasFMRadio = true;
             }
-            catch (RadioDisabledException)
+            catch (RadioDisabledException e)
             {
-                // No radio
+                System.Diagnostics.Debug.WriteLine(DebugTag
+                    + ".ResolveFMRadioInfo(): Failed to get the FM radio instance: "
+                    + e.ToString());
             }
         }
 
@@ -475,7 +494,18 @@ namespace HardwareInfo
 
         private void ResolveOperator()
         {
-            Operator = (String)DeviceExtendedProperties.GetValue("OriginalMobileOperatorName");
+            try
+            {
+                Operator = (string)DeviceExtendedProperties.GetValue("OriginalMobileOperatorName");
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(DebugTag
+                    + ".ResolveOperator(): Failed to resolve the operator name via DeviceExtendedProperties: "
+                    + e.ToString());
+
+                Operator = null;
+            }
         }
 
         private void ResolveManufacturer()
@@ -512,7 +542,7 @@ namespace HardwareInfo
 
         private void ResolveUiTheme()
         {
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            Deployment.Current.Dispatcher.BeginInvoke(delegate()
             {
                 Visibility darkBackgroundVisibility =
                     (Visibility)Application.Current.Resources["PhoneDarkThemeVisibility"];

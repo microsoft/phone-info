@@ -61,11 +61,29 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to about.
         /// </summary>
         public static string AboutLower {
             get {
                 return ResourceManager.GetString("AboutLower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About phone.
+        /// </summary>
+        public static string AboutPhone {
+            get {
+                return ResourceManager.GetString("AboutPhone", resourceCulture);
             }
         }
         
@@ -133,6 +151,15 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Battery &amp; power.
+        /// </summary>
+        public static string BatteryAndPower {
+            get {
+                return ResourceManager.GetString("BatteryAndPower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Battery status information.
         /// </summary>
         public static string BatteryStatusInfo {
@@ -151,15 +178,6 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resolve hardware information.
-        /// </summary>
-        public static string CheckHWText {
-            get {
-                return ResourceManager.GetString("CheckHWText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Compass.
         /// </summary>
         public static string Compass {
@@ -169,11 +187,29 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Charging.
+        /// </summary>
+        public static string ConnectedToExternalPowerSupply {
+            get {
+                return ResourceManager.GetString("ConnectedToExternalPowerSupply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to currently in use of.
         /// </summary>
         public static string CurrentlyInUseOf {
             get {
                 return ResourceManager.GetString("CurrentlyInUseOf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark.
+        /// </summary>
+        public static string Dark {
+            get {
+                return ResourceManager.GetString("Dark", resourceCulture);
             }
         }
         
@@ -192,6 +228,15 @@ namespace HardwareInfo.Resources {
         public static string DisplaySize {
             get {
                 return ResourceManager.GetString("DisplaySize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Firmware version.
+        /// </summary>
+        public static string FirmwareVersion {
+            get {
+                return ResourceManager.GetString("FirmwareVersion", resourceCulture);
             }
         }
         
@@ -241,6 +286,15 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hardware version.
+        /// </summary>
+        public static string HardwareVersion {
+            get {
+                return ResourceManager.GetString("HardwareVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to inches.
         /// </summary>
         public static string Inches {
@@ -255,6 +309,24 @@ namespace HardwareInfo.Resources {
         public static string Inclinometer {
             get {
                 return ResourceManager.GetString("Inclinometer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Light.
+        /// </summary>
+        public static string Light {
+            get {
+                return ResourceManager.GetString("Light", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manufacturer.
+        /// </summary>
+        public static string Manufacturer {
+            get {
+                return ResourceManager.GetString("Manufacturer", resourceCulture);
             }
         }
         
@@ -282,6 +354,15 @@ namespace HardwareInfo.Resources {
         public static string NotAvailable {
             get {
                 return ResourceManager.GetString("NotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operator.
+        /// </summary>
+        public static string Operator {
+            get {
+                return ResourceManager.GetString("Operator", resourceCulture);
             }
         }
         
@@ -331,6 +412,15 @@ namespace HardwareInfo.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string Refresh {
+            get {
+                return ResourceManager.GetString("Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LeftToRight.
         /// </summary>
         public static string ResourceFlowDirection {
@@ -372,6 +462,24 @@ namespace HardwareInfo.Resources {
         public static string SDCard {
             get {
                 return ResourceManager.GetString("SDCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        public static string Theme {
+            get {
+                return ResourceManager.GetString("Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme accent color.
+        /// </summary>
+        public static string ThemeAccentColor {
+            get {
+                return ResourceManager.GetString("ThemeAccentColor", resourceCulture);
             }
         }
         

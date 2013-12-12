@@ -9,6 +9,11 @@
         <vm:BoolItemModel BooleanValue="false" HardwareFeatureText="Test item 3"/>
     </vm:MainViewModel.CameraAndSensorItems>
 
+    <vm:MainViewModel.BatteryAndPowerItems>
+        <vm:BoolItemModel BooleanValue="true" HardwareFeatureText="Test item 1"/>
+        <vm:BoolItemModel BooleanValue="false" HardwareFeatureText="Test item 2"/>
+    </vm:MainViewModel.BatteryAndPowerItems>
+
     <vm:MainViewModel.OtherItems>
         <vm:BoolItemModel BooleanValue="false" HardwareFeatureText="Test item 1"/>
         <vm:BoolItemModel BooleanValue="true" HardwareFeatureText="Test item 2"/>

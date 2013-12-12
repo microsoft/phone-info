@@ -19,6 +19,7 @@ namespace HardwareInfo.ViewModels
         /// A collection for ItemViewModel objects.
         /// </summary>
         public ObservableCollection<BoolItemModel> CameraAndSensorItems { get; private set; }
+        public ObservableCollection<BoolItemModel> BatteryAndPowerItems { get; private set; }
         public ObservableCollection<BoolItemModel> OtherItems { get; private set; }
 
         public bool IsDataLoaded
@@ -27,8 +28,8 @@ namespace HardwareInfo.ViewModels
             private set;
         }
 
-        private String _screenResolution;
-        public String ScreenResolution
+        private string _screenResolution;
+        public string ScreenResolution
         {
             get
             {
@@ -41,8 +42,8 @@ namespace HardwareInfo.ViewModels
             }
         }
 
-        private String _displaySize;
-        public String DisplaySize
+        private string _displaySize;
+        public string DisplaySize
         {
             get
             {
@@ -55,8 +56,8 @@ namespace HardwareInfo.ViewModels
             }
         }
 
-        private String _deviceTotalMemory;
-        public String DeviceTotalMemory
+        private string _deviceTotalMemory;
+        public string DeviceTotalMemory
         {
             get
             {
@@ -83,8 +84,8 @@ namespace HardwareInfo.ViewModels
             }
         }
 
-        private String _memoryStatus;
-        public String MemoryStatus
+        private string _memoryStatus;
+        public string MemoryStatus
         {
             get
             {
@@ -97,8 +98,8 @@ namespace HardwareInfo.ViewModels
             }
         }
 
-        private String _appMemoryPeak;
-        public String AppMemoryPeak
+        private string _appMemoryPeak;
+        public string AppMemoryPeak
         {
             get
             {
@@ -111,12 +112,97 @@ namespace HardwareInfo.ViewModels
             }
         }
 
+        private string _manufacturer;
+        public string Manufacturer
+        {
+            get
+            {
+                return _manufacturer;
+            }
+            set
+            {
+                _manufacturer = value;
+                NotifyPropertyChanged("Manufacturer");
+            }
+        }
+
+        private string _hadrwareVersion;
+        public string HardwareVersion
+        {
+            get
+            {
+                return _hadrwareVersion;
+            }
+            set
+            {
+                _hadrwareVersion = value;
+                NotifyPropertyChanged("HardwareVersion");
+            }
+        }
+
+        private string _firmwareVersion;
+        public string FirmwareVersion
+        {
+            get
+            {
+                return _firmwareVersion;
+            }
+            set
+            {
+                _firmwareVersion = value;
+                NotifyPropertyChanged("FirmwareVersion");
+            }
+        }
+
+        private string _operator;
+        public string Operator
+        {
+            get
+            {
+                return _operator;
+            }
+            set
+            {
+                _operator = value;
+                NotifyPropertyChanged("Operator");
+            }
+        }
+
+        private string _theme;
+        public string Theme
+        {
+            get
+            {
+                return _theme;
+            }
+            set
+            {
+                _theme = value;
+                NotifyPropertyChanged("Theme");
+            }
+        }
+
+        private string _themeAccentColor;
+        public string ThemeAccentColor
+        {
+            get
+            {
+                return _themeAccentColor;
+            }
+            set
+            {
+                _themeAccentColor = value;
+                NotifyPropertyChanged("ThemeAccentColor");
+            }
+        }
+
         /// <summary>
         /// Constructor.
         /// </summary>
         public MainViewModel()
         {
             CameraAndSensorItems = new ObservableCollection<BoolItemModel>();
+            BatteryAndPowerItems = new ObservableCollection<BoolItemModel>();
             OtherItems = new ObservableCollection<BoolItemModel>();
             CreateItems();
         }
@@ -198,10 +284,10 @@ namespace HardwareInfo.ViewModels
                 + properties.ScreenResolutionSize.Width + "x" + properties.ScreenResolutionSize.Height
                 + " " + AppResources.Pixels;
 
-            if (properties.ScreenSizeInInches > 0)
+            if (properties.DisplaySizeInInches > 0)
             {
                 DisplaySize = AppResources.DisplaySize + ": "
-                    + properties.ScreenSizeInInches + " "
+                    + properties.DisplaySizeInInches + " "
                     + AppResources.Inches;
             }
             else
@@ -236,6 +322,25 @@ namespace HardwareInfo.ViewModels
             }
 
             DeviceTotalMemory = DeviceProperties.TransformBytes(properties.DeviceTotalMemoryInBytes, DeviceProperties.UnitPrefixes.Mega, 0) + " MB";
+
+            foreach (BoolItemModel item in BatteryAndPowerItems)
+            {
+                if (item.HardwareFeatureText.Equals(AppResources.BatteryStatusInfo))
+                {
+                    item.BooleanValue = properties.HasBatteryStatusInfo;
+                }
+                else if (item.HardwareFeatureText.Equals(AppResources.ConnectedToExternalPowerSupply))
+                {
+                    item.BooleanValue = properties.IsConnectedToExternalPowerSupply;
+                }
+            }
+
+            Manufacturer = AppResources.Manufacturer + ": " + properties.Manufacturer;
+            HardwareVersion = AppResources.HardwareVersion + ": " + properties.HardwareVersion;
+            FirmwareVersion = AppResources.FirmwareVersion + ": " + properties.FirmwareVersion;
+            Operator = (properties.Operator != null) ? properties.Operator : AppResources.NotAvailable;
+            Theme = AppResources.Theme + ": " + (properties.HasDarkUiThemeInUse ? AppResources.Dark : AppResources.Light);
+            ThemeAccentColor = AppResources.ThemeAccentColor + ": " + properties.ThemeAccentColor.ToString();
 
             foreach (BoolItemModel item in OtherItems)
             {
@@ -273,6 +378,9 @@ namespace HardwareInfo.ViewModels
             CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.OrientationSensor });
             CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.NFC });
 
+            BatteryAndPowerItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.BatteryStatusInfo });
+            BatteryAndPowerItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.ConnectedToExternalPowerSupply });
+
             OtherItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.FMRadio });
             OtherItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.SDCard });
             OtherItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.VibrationDevice });
@@ -280,10 +388,13 @@ namespace HardwareInfo.ViewModels
             ScreenResolution = AppResources.Waiting;
             DeviceTotalMemory = AppResources.Waiting;
             MemoryStatus = AppResources.Waiting;
+            Manufacturer = AppResources.Waiting;
+            Operator = AppResources.Waiting;
+            Theme = AppResources.Waiting;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName)
+        private void NotifyPropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (null != handler)
