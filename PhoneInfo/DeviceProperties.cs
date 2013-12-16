@@ -38,7 +38,6 @@ namespace PhoneInfo
          * Constants
          */
         private const string DebugTag = "DeviceProperties";
-
         /*
          * Data types
          */
@@ -64,6 +63,7 @@ namespace PhoneInfo
          */
 
         private static DeviceProperties _instance = null;
+        private static Object instanceLock = new Object();
         private SolidColorBrush _themeBackgroundBrush = null;
 
         public bool Initialized { get; private set; }
@@ -136,7 +136,7 @@ namespace PhoneInfo
         /// <returns>The singleton instance of this class.</returns>
         public static DeviceProperties GetInstance()
         {
-            lock("SingletonConstructorLock")
+            lock (instanceLock)
             {
                 if (_instance == null)
                 {
