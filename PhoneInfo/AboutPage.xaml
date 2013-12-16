@@ -14,12 +14,19 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush
+                Opacity="0.75"
+                ImageSource="Assets/Images/Background.png"
+                />
+        </Grid.Background>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitleUpper, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>
@@ -28,12 +35,27 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock
-                x:Name="VersionTextBlock"
-                Foreground="{StaticResource PhoneAccentBrush}"
-                Style="{StaticResource PhoneTextSubtleStyle}"
-                Text="Version x.x.x"
-                />
+            <StackPanel>
+                <TextBlock
+                    x:Name="VersionTextBlock"
+                    Style="{StaticResource PhoneTextSubtleStyle}"
+                    Text="Version x.x.x"
+                    />
+                <TextBlock Margin="0,24,0,0" TextWrapping="Wrap">
+                    <Run Text="Phone Info is a Nokia example for retrieving both static and dynamic properties of a Windows Phone device. The methods demonstrated by this app, and implemented in DeviceProperties class, can be used for adapting your application to wider range of phone models; If a phone does not support a certain non-vital feature of your application, you can gracefully adapt by hiding that feature dynamically." />
+                    <LineBreak />
+                    <LineBreak />
+                    <Run Text="This project is hosted in GitHub, where you can find the source code of the latest version of this sample, contribute to the project and report issues:" />
+                </TextBlock>
+                <HyperlinkButton
+                        Margin="-12,0,0,0"
+                        Foreground="{StaticResource PhoneAccentBrush}"
+                        FontSize="{StaticResource PhoneFontSizeNormal}"
+                        Content="https://github.com/nokia-developer/phone-info"
+                        NavigateUri="https://github.com/nokia-developer/phone-info"
+                        TargetName="_blank"
+                        />
+            </StackPanel>
         </Grid>
     </Grid>
 

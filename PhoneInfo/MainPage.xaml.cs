@@ -120,7 +120,7 @@ namespace PhoneInfo
 
         void aboutMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
         }
     }
 }
