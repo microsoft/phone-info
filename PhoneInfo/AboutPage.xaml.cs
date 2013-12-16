@@ -7,10 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using HardwareInfo.Resources;
+using PhoneInfo.Resources;
 using System.Xml.Linq;
 
-namespace HardwareInfo
+namespace PhoneInfo
 {
     public partial class AboutPage : PhoneApplicationPage
     {

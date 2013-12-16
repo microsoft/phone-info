@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareInfo", "HardwareInfo\HardwareInfo.csproj", "{530DA7B7-E7EE-4B1E-99A2-AB28E0C54782}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneInfo", "PhoneInfo\PhoneInfo.csproj", "{530DA7B7-E7EE-4B1E-99A2-AB28E0C54782}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

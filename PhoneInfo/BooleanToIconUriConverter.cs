@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace HardwareInfo
+namespace PhoneInfo
 {
     /// <summary>
     /// A small utility class for converting boolean values into matching icon

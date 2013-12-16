@@ -17,11 +17,11 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Navigation;
 
-using HardwareInfo.Resources;
-using HardwareInfo.ViewModels;
+using PhoneInfo.Resources;
+using PhoneInfo.ViewModels;
 
 
-namespace HardwareInfo
+namespace PhoneInfo
 {
     /// <summary>
     /// The application main page.

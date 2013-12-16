@@ -6,9 +6,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-using HardwareInfo.Resources;
+using PhoneInfo.Resources;
 
-namespace HardwareInfo.ViewModels
+namespace PhoneInfo.ViewModels
 {
     /// <summary>
     /// Generates and holds the items for the pivot page.

@@ -3,7 +3,7 @@
  * See the license text file for the license information.
  */
 
-namespace HardwareInfo
+namespace PhoneInfo
 {
     using Microsoft.Devices.Radio;
     using Microsoft.Phone.Info;

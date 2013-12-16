@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace HardwareInfo.ViewModels
+namespace PhoneInfo.ViewModels
 {
     /// <summary>
     /// Container class for the property values bound to the pivot view.
