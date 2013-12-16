@@ -2,27 +2,17 @@
  * Copyright (c) 2013 Nokia Corporation.
  */
 
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Navigation;
-
-using PhoneInfo.Resources;
-using PhoneInfo.ViewModels;
-
-
 namespace PhoneInfo
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using Microsoft.Phone.Controls;
+    using Microsoft.Phone.Shell;
+    
+    using PhoneInfo.Resources;
+
     /// <summary>
     /// The application main page.
     /// </summary>
@@ -59,9 +49,11 @@ namespace PhoneInfo
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            await Task.Factory.StartNew(Resolver.Init);
+            Task resolverTask = Task.Run( () => Resolver.Init());
+            resolverTask.Wait();
+
             System.Threading.Thread.Sleep(ProgressBarDelay);
             App.ViewModel.LoadData();
             HideProgressBar(null);
@@ -98,7 +90,7 @@ namespace PhoneInfo
             }
         }
 
-        private async void refreshButton_Click(object sender, EventArgs e)
+        private void refreshButton_Click(object sender, EventArgs e)
         {
             _refreshButton.IsEnabled = false;
             MyProgressBar.Visibility = Visibility.Visible;
@@ -113,14 +105,16 @@ namespace PhoneInfo
                 TimeSpan.FromMilliseconds(ProgressBarDelay),
                 TimeSpan.FromMilliseconds(ProgressBarDelay));
 
-            await Task.Factory.StartNew(Resolver.Refresh);
+            Task resolverTask = Task.Run(() => Resolver.Refresh());
+            resolverTask.Wait();
+
             App.ViewModel.LoadData();
             _refreshButton.IsEnabled = true;            
         }
 
         void aboutMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
         }
     }
 }
