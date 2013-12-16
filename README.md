@@ -1,11 +1,12 @@
 Phone Info
 ==========
 
-Phone Info is a Nokia example for retrieving hardware information of a Windows
-Phone device. The methods demonstrated by this app can be used for adapting your
-application to wider range of phone models; If a phone does not support a
-certain non-vital feature of your application, you can gracefully adapt by
-hiding that feature dynamically. 
+Phone Info is a Nokia example for retrieving both static and dynamic properties
+of a Windows Phone device. The methods demonstrated by this app can be used for
+adapting your application to wider range of phone models; If a phone does not
+support a certain non-vital feature of your application, you can gracefully
+adapt by hiding that feature dynamically. The same applies to optimising your
+app for different screen resolutions and display sizes.
 
 ![General view on Nokia Lumia 1520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots/general_l1520_small.png)&nbsp;
 ![Cams and sensors view on Nokia Lumia 1520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots/cams_and_sensors_1_l1520_small.png)&nbsp;
@@ -41,8 +42,10 @@ Lumia 520, Nokia Lumia 1020 and Nokia Lumia 1520.
 * `ViewModels/ItemModel`: A model of a single item in the Availability view
 * `ViewModels/MainViewModel`: The model which contains and allows to manage all
   the items in the Availability view
-* `DeviceProperties`: The class which resolves and holds the information of
-  all the different phone specific properties shown by the application
+* `DeviceProperties`: The main helper class which resolves and holds the
+  information of all the different phone specific properties shown by the
+  application. **This is the class to extract from this project and place it
+  into your own application.**
 * `MainPage`: Implements the application UI and controls the application logic
 
 **Required capabilities:**
