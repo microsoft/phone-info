@@ -2,27 +2,18 @@
  * Copyright (c) 2013 Nokia Corporation.
  */
 
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Navigation;
-
-using PhoneInfo.Resources;
-using PhoneInfo.ViewModels;
-
-
 namespace PhoneInfo
 {
+    using System;
+    using System.Net;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using Microsoft.Phone.Controls;
+    using Microsoft.Phone.Shell;
+
+    using PhoneInfo.Resources;
+    
     /// <summary>
     /// The application main page.
     /// </summary>
@@ -120,7 +111,7 @@ namespace PhoneInfo
 
         void aboutMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
         }
     }
 }
