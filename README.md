@@ -25,7 +25,9 @@ This example application is hosted in GitHub:
 https://github.com/nokia-developer/phone-info
 
 For more information on the subject, visit Nokia Lumia Developer's Library:
-https://www.developer.nokia.com/Resources/Library/Lumia/#!how-to-adapt-to-lumia-phone-hardware-features.html
+
+* http://developer.nokia.com/Resources/Library/Lumia/#!optimising-for-large-screen-phones.html
+* https://www.developer.nokia.com/Resources/Library/Lumia/#!how-to-adapt-to-lumia-phone-hardware-features.html
 
 The latest version is compatible with Windows Phone 8 devices. Tested on Nokia
 Lumia 520, Nokia Lumia 1020 and Nokia Lumia 1520.
