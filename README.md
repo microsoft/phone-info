@@ -2,18 +2,18 @@ Phone Info
 ==========
 
 Phone Info is a Nokia example for retrieving both static and dynamic properties
-of a Windows Phone device. The methods demonstrated by this app can be used for
-adapting your application to wider range of phone models; If a phone does not
-support a certain non-vital feature of your application, you can gracefully
-adapt by hiding that feature dynamically. The same applies to optimising your
-app for different screen resolutions and display sizes.
+of a Windows Phone device. The methods implemented in `DeviceProperties` class
+and utilised in this app can be used for adapting your application to wider
+range of phone models; If a phone does not support a certain non-vital feature
+of your application, you can gracefully adapt by hiding that feature
+dynamically. The same applies to optimising your app for different screen
+resolutions and display sizes.
 
 ![General view on Nokia Lumia 1520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots/general_l1520_small.png)&nbsp;
 ![Cams and sensors view on Nokia Lumia 1520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots/cams_and_sensors_1_l1520_small.png)&nbsp;
 ![Others view on Nokia Lumia 520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots/others_1_l520_small.png)
 
 *Two first screenshots are from Nokia Lumia 1520, the third one is from Nokia Lumia 520.*
-
 
 The app consists of three pivot views. The General view provides screen and
 display properties, memory and battery status. The Cameras and sensors view
