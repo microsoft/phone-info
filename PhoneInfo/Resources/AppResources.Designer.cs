@@ -169,11 +169,11 @@ namespace PhoneInfo.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cams &amp; sensors.
+        ///   Looks up a localized string similar to Cameras &amp; flashes.
         /// </summary>
-        public static string CamerasAndSensorsTitle {
+        public static string CameraItemsTitle {
             get {
-                return ResourceManager.GetString("CamerasAndSensorsTitle", resourceCulture);
+                return ResourceManager.GetString("CameraItemsTitle", resourceCulture);
             }
         }
         
@@ -462,6 +462,15 @@ namespace PhoneInfo.Resources {
         public static string SDCard {
             get {
                 return ResourceManager.GetString("SDCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensors.
+        /// </summary>
+        public static string SensorItemsTitle {
+            get {
+                return ResourceManager.GetString("SensorItemsTitle", resourceCulture);
             }
         }
         

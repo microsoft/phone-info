@@ -18,7 +18,8 @@ namespace PhoneInfo.ViewModels
         /// <summary>
         /// A collection for ItemViewModel objects.
         /// </summary>
-        public ObservableCollection<BoolItemModel> CameraAndSensorItems { get; private set; }
+        public ObservableCollection<BoolItemModel> SensorItems { get; private set; }
+        public ObservableCollection<BoolItemModel> CameraItems { get; private set; }
         public ObservableCollection<BoolItemModel> BatteryAndPowerItems { get; private set; }
         public ObservableCollection<BoolItemModel> OtherItems { get; private set; }
 
@@ -201,7 +202,8 @@ namespace PhoneInfo.ViewModels
         /// </summary>
         public MainViewModel()
         {
-            CameraAndSensorItems = new ObservableCollection<BoolItemModel>();
+            SensorItems = new ObservableCollection<BoolItemModel>();
+            CameraItems = new ObservableCollection<BoolItemModel>();
             BatteryAndPowerItems = new ObservableCollection<BoolItemModel>();
             OtherItems = new ObservableCollection<BoolItemModel>();
             CreateItems();
@@ -219,19 +221,11 @@ namespace PhoneInfo.ViewModels
                 return;
             }
 
-            foreach (BoolItemModel item in CameraAndSensorItems)
+            foreach (BoolItemModel item in SensorItems)
             {
                 if (item.HardwareFeatureText.Equals(AppResources.Accelerometer))
                 {
                     item.BooleanValue = properties.HasAccelerometerSensor;
-                }
-                else if (item.HardwareFeatureText.Equals(AppResources.PrimaryCamera))
-                {
-                    item.BooleanValue = properties.HasBackCamera;
-                }
-                else if (item.HardwareFeatureText.Equals(AppResources.PrimaryCameraFlash))
-                {
-                    item.BooleanValue = properties.HasBackCameraFlash;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.Compass))
                 {
@@ -240,14 +234,6 @@ namespace PhoneInfo.ViewModels
                 else if (item.HardwareFeatureText.Equals(AppResources.FMRadio))
                 {
                     item.BooleanValue = properties.HasFMRadio;
-                }
-                else if (item.HardwareFeatureText.Equals(AppResources.FrontCamera))
-                {
-                    item.BooleanValue = properties.HasFrontCamera;
-                }
-                else if (item.HardwareFeatureText.Equals(AppResources.FrontCameraFlash))
-                {
-                    item.BooleanValue = properties.HasFrontCameraFlash;
                 }
                 else if (item.HardwareFeatureText.Equals(AppResources.Gyroscope))
                 {
@@ -276,6 +262,26 @@ namespace PhoneInfo.ViewModels
                 else if (item.HardwareFeatureText.Equals(AppResources.VibrationDevice))
                 {
                     item.BooleanValue = properties.HasVibrationDevice;
+                }
+            }
+
+            foreach (BoolItemModel item in CameraItems)
+            {
+                if (item.HardwareFeatureText.Equals(AppResources.PrimaryCamera))
+                {
+                    item.BooleanValue = properties.HasBackCamera;
+                }
+                else if (item.HardwareFeatureText.Equals(AppResources.PrimaryCameraFlash))
+                {
+                    item.BooleanValue = properties.HasBackCameraFlash;
+                }
+                else if (item.HardwareFeatureText.Equals(AppResources.FrontCamera))
+                {
+                    item.BooleanValue = properties.HasFrontCamera;
+                }
+                else if (item.HardwareFeatureText.Equals(AppResources.FrontCameraFlash))
+                {
+                    item.BooleanValue = properties.HasFrontCameraFlash;
                 }
             }
 
@@ -366,17 +372,18 @@ namespace PhoneInfo.ViewModels
         /// </summary>
         private void CreateItems()
         {
-            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Accelerometer });
-            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.PrimaryCamera });
-            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.PrimaryCameraFlash });
-            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Compass });
-            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.FrontCamera });
-            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.FrontCameraFlash });
-            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Gyroscope });
-            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Inclinometer });
-            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.MotionApi });
-            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.OrientationSensor });
-            CameraAndSensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.NFC });
+            SensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Accelerometer });
+            SensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Compass });
+            SensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Gyroscope });
+            SensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.Inclinometer });
+            SensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.MotionApi });
+            SensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.OrientationSensor });
+            SensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.NFC });
+
+            CameraItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.PrimaryCamera });
+            CameraItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.PrimaryCameraFlash });
+            CameraItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.FrontCamera });
+            CameraItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.FrontCameraFlash });
 
             BatteryAndPowerItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.BatteryStatusInfo });
             BatteryAndPowerItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = AppResources.ConnectedToExternalPowerSupply });

@@ -15,9 +15,10 @@ resolutions and display sizes.
 
 *Two first screenshots are from Nokia Lumia 1520, the third one is from Nokia Lumia 520.*
 
-The app consists of three pivot views. The General view provides screen and
-display properties, memory and battery status. The Cameras and sensors view
-lists the camera, flash and sensor availability of the phone. The last, Others
+The user interface of the app consists of four pivot views. The General view
+provides screen and display properties, memory and battery status. The Sensors
+view lists the sensor availability of the phone. Similarly, the Cameras view
+lists the available cameras and camera flashes of the phone. The last, Others
 view displays information about the phone itself (firmware and hardware
 versions). In addition, there is information about operator, phone theme and
 availability of FM radio, SD card etc.

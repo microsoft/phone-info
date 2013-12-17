@@ -146,10 +146,40 @@
                     </StackPanel>
                 </ScrollViewer>
             </phone:PivotItem>
-            
-            <!-- Cameras and sensors -->
-            <phone:PivotItem Header="{Binding Path=LocalizedResources.CamerasAndSensorsTitle, Source={StaticResource LocalizedStrings}}">
-                <phone:LongListSelector Margin="0,0,0,0" ItemsSource="{Binding CameraAndSensorItems}">
+
+            <!-- Sensors -->
+            <phone:PivotItem Header="{Binding Path=LocalizedResources.SensorItemsTitle, Source={StaticResource LocalizedStrings}}">
+                <phone:LongListSelector Margin="0,0,0,0" ItemsSource="{Binding SensorItems}">
+                    <phone:LongListSelector.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,0,17" Background="Transparent">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Source="{Binding BooleanValue, Converter={StaticResource IconUriConverter}}"
+                                />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Style="{StaticResource ListItemTextBlockStyleLarge}"
+                                    Text="{Binding HardwareFeatureText}"
+                                />
+                            </Grid>
+                        </DataTemplate>
+                    </phone:LongListSelector.ItemTemplate>
+                </phone:LongListSelector>
+            </phone:PivotItem>
+
+            <!-- Cameras/flashes -->
+            <phone:PivotItem Header="{Binding Path=LocalizedResources.CameraItemsTitle, Source={StaticResource LocalizedStrings}}">
+                <phone:LongListSelector Margin="0,0,0,0" ItemsSource="{Binding CameraItems}">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,0,0,17" Background="Transparent">

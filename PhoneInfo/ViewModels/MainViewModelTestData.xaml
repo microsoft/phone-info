@@ -3,11 +3,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:vm="clr-namespace:PhoneInfo.ViewModels">
 
-    <vm:MainViewModel.CameraAndSensorItems>
+    <vm:MainViewModel.SensorItems>
         <vm:BoolItemModel BooleanValue="false" HardwareFeatureText="Test item 1"/>
         <vm:BoolItemModel BooleanValue="true" HardwareFeatureText="Test item 2"/>
         <vm:BoolItemModel BooleanValue="false" HardwareFeatureText="Test item 3"/>
-    </vm:MainViewModel.CameraAndSensorItems>
+    </vm:MainViewModel.SensorItems>
+
+    <vm:MainViewModel.CameraItems>
+        <vm:BoolItemModel BooleanValue="false" HardwareFeatureText="Test item 1"/>
+        <vm:BoolItemModel BooleanValue="true" HardwareFeatureText="Test item 2"/>
+        <vm:BoolItemModel BooleanValue="false" HardwareFeatureText="Test item 3"/>
+    </vm:MainViewModel.CameraItems>
 
     <vm:MainViewModel.BatteryAndPowerItems>
         <vm:BoolItemModel BooleanValue="true" HardwareFeatureText="Test item 1"/>

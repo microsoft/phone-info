@@ -209,8 +209,8 @@
   <data name="BatteryAndPower" xml:space="preserve">
     <value>Battery &amp; power</value>
   </data>
-  <data name="CamerasAndSensorsTitle" xml:space="preserve">
-    <value>Cams &amp; sensors</value>
+  <data name="SensorItemsTitle" xml:space="preserve">
+    <value>Sensors</value>
   </data>
   <data name="ConnectedToExternalPowerSupply" xml:space="preserve">
     <value>Charging</value>
@@ -268,5 +268,8 @@
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
+  </data>
+  <data name="CameraItemsTitle" xml:space="preserve">
+    <value>Cameras &amp; flashes</value>
   </data>
 </root>
