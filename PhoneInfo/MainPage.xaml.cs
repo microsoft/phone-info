@@ -110,6 +110,7 @@ namespace PhoneInfo
         }
 
         void aboutMenuItem_Click(object sender, EventArgs e)
+        {
             NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
         }
     }
