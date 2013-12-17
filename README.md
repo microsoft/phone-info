@@ -14,7 +14,7 @@ resolutions and display sizes.
 ![Cameras and flashes on Nokia Lumia 1520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots/camera_l1520_small.png)&nbsp;
 ![Others view on Nokia Lumia 520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots/others_1_l520_small.png)
 
-*Two first screenshots are from Nokia Lumia 1520, the third one is from Nokia Lumia 520.*
+*Three first screenshots are from Nokia Lumia 1520, the last one (Others view) is from Nokia Lumia 520.*
 
 The user interface of the app consists of four pivot views. The General view
 provides screen and display properties, memory and battery status. The Sensors
