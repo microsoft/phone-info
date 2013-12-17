@@ -69,7 +69,7 @@ https://github.com/nokia-developer/phone-info/blob/master/Licence.txt
 -------------------------------------------------------------------------------
 
 * Version 1.2: Project name changed from "Hardware Info" to "Phone Info". New
-  properties added such as screen and display information. One new Pivot item
+  properties added such as screen and display information. Two new Pivot items
   added and the information shown in the views rearranged.
 * Version 1.1: Refactored the user interface. Characteristics view added.
 * Version 1.0: The initial release.
