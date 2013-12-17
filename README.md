@@ -10,7 +10,8 @@ dynamically. The same applies to optimising your app for different screen
 resolutions and display sizes.
 
 ![General view on Nokia Lumia 1520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots/general_l1520_small.png)&nbsp;
-![Cams and sensors view on Nokia Lumia 1520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots/cams_and_sensors_1_l1520_small.png)&nbsp;
+![Sensors on Nokia Lumia 1520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots/sensors_l1520_small.png)&nbsp;
+![Cameras and flashes on Nokia Lumia 1520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots/camera_1_l1520_small.png)&nbsp;
 ![Others view on Nokia Lumia 520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots/others_1_l520_small.png)
 
 *Two first screenshots are from Nokia Lumia 1520, the third one is from Nokia Lumia 520.*
