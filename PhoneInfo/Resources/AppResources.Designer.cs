@@ -169,7 +169,7 @@ namespace PhoneInfo.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cameras &amp; flashes.
+        ///   Looks up a localized string similar to Camera.
         /// </summary>
         public static string CameraItemsTitle {
             get {
