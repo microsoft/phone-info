@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="PhoneInfo.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PhoneInfo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/Images/Background.png"></ImageBrush>
+        </Grid.Background>
+        
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- TitlePanel -->
+        <StackPanel Grid.Row="0" Margin="24,17,0,28">
+            <TextBlock x:Uid="About" Style="{ThemeResource TitleTextBlockStyle}" Foreground="White" Typography.Capitals="SmallCaps" Text="" />
+            <TextBlock x:Uid="ApplicationTitle" Margin="0,12,0,0" Style="{ThemeResource HeaderTextBlockStyle}" Foreground="White" Text="" />
+            <TextBlock x:Name="VersionNumberTextBlock" x:Uid="VersionNumber" Margin="0,6,0,0" Style="{ThemeResource SubheaderTextBlockStyle}" Foreground="WhiteSmoke" Text="" />
+        </StackPanel>
+
+        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="24,6,24,0">
+            <StackPanel>
+                <TextBlock
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Foreground="White"
+                    TextWrapping="Wrap"
+                    Text="This is an example application for retrieving both static and dynamic properties of a Windows Phone device. The methods demonstrated by this app can be used for adapting your application to wider range of phone models; If a phone does not support a certain non-vital feature of your application, you can gracefully adapt by hiding that feature dynamically."
+                    />
+                <TextBlock
+                    Margin="0,12,0,0"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Foreground="White"
+                    TextWrapping="Wrap"
+                    Text="The source code of this application is hosted in GitHub:"
+                    />
+                <HyperlinkButton NavigateUri="https://github.com/nokia-developer/phone-info">
+                    <HyperlinkButton.Content>
+                        <TextBlock
+                            Style="{ThemeResource BodyTextBlockStyle}"
+                            Foreground="White"
+                            TextWrapping="Wrap"                           
+                            Text="github.com/nokia-developer/phone-info"
+                            />
+                    </HyperlinkButton.Content>
+                </HyperlinkButton>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

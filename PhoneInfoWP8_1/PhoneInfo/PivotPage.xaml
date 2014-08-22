@@ -1,0 +1,425 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PhoneInfo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:PhoneInfo.Data"
+    x:Class="PhoneInfo.PivotPage"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <Style x:Name="ListItemTextBlockStyleLarge" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Segoe WP Semilight" />
+            <Setter Property="FontSize" Value="{ThemeResource TextStyleExtraLargeFontSize}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style x:Name="ListItemTextBlockStyleMedium" TargetType="TextBlock">
+            <Setter Property="Margin" Value="12,0,0,0" />
+            <Setter Property="FontSize" Value="{ThemeResource TextStyleLargeFontSize}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <local:BooleanToIconUriConverter x:Key="IconUriConverter" />
+    </Page.Resources>
+
+    <!--LayoutRoot -->
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/Images/Background.png"></ImageBrush>
+        </Grid.Background>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <!--<TextBlock x:Uid="ApplicationTitleUpper" Text="" />-->
+            <ProgressBar
+                x:Name="MyProgressBar"
+                Margin="0,-70,0,0"
+                Height="10"
+                Foreground="White"
+                IsIndeterminate="True"
+                />
+        </StackPanel>
+
+        <!-- Pivot control -->
+        <Pivot x:Uid="ApplicationToUpper" x:Name="MyPivot" Title="" Foreground="White">
+
+            <!-- Fixed -->
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock x:Uid="Fixed" Foreground="White" Text="" />
+                </PivotItem.Header>
+                <ScrollViewer>
+                    <StackPanel>
+                        <!-- Screen/display -->
+                        <StackPanel Margin="0,0,0,17">
+                            <TextBlock
+                                x:Uid="ScreenDisplay"
+                                Margin="0,0,0,6"
+                                Style="{ThemeResource SubheaderTextBlockStyle}"
+                                Foreground="White"
+                                TextWrapping="Wrap"
+                                Text=""
+                                />
+                            <TextBlock
+                                Style="{StaticResource ListItemTextBlockStyleMedium}"
+                                TextWrapping="Wrap"
+                                Text="{Binding ScreenResolution}"
+                                />
+                            <TextBlock
+                                Style="{StaticResource ListItemTextBlockStyleMedium}"
+                                TextWrapping="Wrap"
+                                Text="{Binding DisplaySize}"
+                                />
+                        </StackPanel>
+                        <!-- Processor information -->
+                        <StackPanel Margin="0,0,0,17">
+                            <TextBlock
+                                x:Uid="ProcessorInformation"
+                                Margin="0,0,0,6"
+                                Style="{ThemeResource SubheaderTextBlockStyle}"
+                                Foreground="White"
+                                TextWrapping="Wrap"
+                                Text=""
+                                />
+                            <TextBlock
+                                x:Uid="Waiting"
+                                x:Name="ProcessorCoreCountTextBlock"
+                                Style="{StaticResource ListItemTextBlockStyleMedium}"
+                                TextWrapping="Wrap"
+                                />
+                        </StackPanel>
+                        <!-- SD card -->
+                        <StackPanel Margin="0,0,0,17">
+                            <TextBlock
+                                x:Uid="SDCard"
+                                Margin="0,0,0,6"
+                                Style="{ThemeResource SubheaderTextBlockStyle}"
+                                Foreground="White"
+                                TextWrapping="Wrap"
+                                Text=""
+                                />
+                            <TextBlock
+                                Style="{StaticResource ListItemTextBlockStyleMedium}"
+                                TextWrapping="Wrap"
+                                Text="{Binding SDCardPresent}"
+                                />
+                        </StackPanel>
+                        <!-- Vibration device -->
+                        <StackPanel Margin="0,0,0,17">
+                            <TextBlock
+                                x:Uid="VibrationDevice"
+                                Margin="0,0,0,6"
+                                Style="{ThemeResource SubheaderTextBlockStyle}"
+                                Foreground="White"
+                                TextWrapping="Wrap"
+                                Text=""
+                                />
+                            <TextBlock
+                                Style="{StaticResource ListItemTextBlockStyleMedium}"
+                                TextWrapping="Wrap"
+                                Text="{Binding VibrationDeviceAvailable}"
+                                />
+                        </StackPanel>                        
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+
+            <!-- Dynamic -->
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock x:Uid="Dynamic" Foreground="White" Text="" />
+                </PivotItem.Header>
+                <ScrollViewer>
+                    <StackPanel>
+                        <!-- App memory -->
+                        <StackPanel Margin="0,10,0,17">
+                            <TextBlock
+                                x:Uid="AppMemory"
+                                Margin="0,0,0,6"
+                                Style="{ThemeResource SubheaderTextBlockStyle}"
+                                Foreground="White"
+                                TextWrapping="Wrap"
+                                Text=""
+                                />
+                            <TextBlock
+                                Style="{StaticResource ListItemTextBlockStyleMedium}"
+                                TextWrapping="Wrap"
+                                Text="{Binding MemoryStatus}"
+                                />
+                            <ProgressBar
+                                Margin="12,6,0,0"
+                                Value="{Binding MemoryUsedInPercentages}"
+                                />
+                        </StackPanel>
+                        <!-- Theme -->
+                        <StackPanel Margin="0,10,0,17">
+                            <TextBlock
+                                x:Uid="Theme"
+                                Margin="0,0,0,6"
+                                Style="{ThemeResource SubheaderTextBlockStyle}"
+                                Foreground="White"
+                                Text=""
+                                />
+                            <TextBlock
+                                Style="{StaticResource ListItemTextBlockStyleMedium}"
+                                TextWrapping="Wrap"
+                                Text="{Binding Theme}"
+                                />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="50" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Style="{StaticResource ListItemTextBlockStyleMedium}"
+                                    TextWrapping="Wrap"
+                                    Text="{Binding ThemeAccentColor}"
+                                    />
+                                <Rectangle
+                                    x:Name="ThemeAccentColorRectangle"
+                                    Grid.Column="1"
+                                    Margin="12,0,0,0"
+                                    Width="50"
+                                    Fill="{StaticResource PhoneAccentBrush}"
+                                    Visibility="Collapsed"
+                                    />
+                            </Grid>
+                        </StackPanel>
+                        <!-- Battery and power -->
+                        <StackPanel Margin="0,10,0,17">
+                            <TextBlock
+                                x:Uid="BatteryAndPower"
+                                Margin="0,0,0,6"
+                                Style="{ThemeResource SubheaderTextBlockStyle}"
+                                Foreground="White"
+                                TextWrapping="Wrap"
+                                Text=""
+                                />
+                            <Grid Margin="0,0,0,17" Background="Transparent">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Source="{Binding HasBatteryStatusInfo, Converter={StaticResource IconUriConverter}}"
+                                    />
+                                <TextBlock
+                                    x:Uid="BatteryStatusInfo"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Style="{StaticResource ListItemTextBlockStyleLarge}"
+                                    Text=""
+                                    />
+                            </Grid>
+                            <TextBlock
+                                x:Uid="Waiting"
+                                x:Name="RemainingBatteryChargeTextBlock"
+                                Margin="12,0,0,17"
+                                Style="{StaticResource ListItemTextBlockStyleLarge}"
+                                TextWrapping="Wrap"
+                                />
+                            <Grid Margin="0,0,0,17" Background="Transparent">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Source="{Binding PowerSavingModeEnabled, Converter={StaticResource IconUriConverter}}"
+                                    />
+                                <TextBlock
+                                    x:Uid="PowerSavingModeEnabled"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Style="{StaticResource ListItemTextBlockStyleLarge}"
+                                    Text=""
+                                    />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+
+            <!-- Cameras/flashes/resolutions -->
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock x:Uid="Camera" Foreground="White" Text="" />
+                </PivotItem.Header>
+                <ScrollViewer>
+                    <StackPanel Margin="0,10,0,17">
+                        <TextBlock
+                            x:Uid="Features"
+                            Margin="0,0,0,6"
+                            Style="{ThemeResource SubheaderTextBlockStyle}"
+                            Foreground="White"
+                            Text=""
+                            />
+                        <ListView Margin="0,12,0,0" ItemsSource="{Binding CameraItems}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,17" Background="Transparent">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Source="{Binding BooleanValue, Converter={StaticResource IconUriConverter}}"
+                                            />
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Style="{StaticResource ListItemTextBlockStyleLarge}"
+                                            Text="{Binding HardwareFeatureText}"
+                                            />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <!-- Back camera resolutions -->
+                        <TextBlock
+                            x:Uid="BackCameraResolutions"
+                            Margin="0,0,0,6"
+                            Style="{ThemeResource SubheaderTextBlockStyle}"
+                            Foreground="White"
+                            Text=""
+                            />
+                        <TextBlock
+                            Style="{StaticResource ListItemTextBlockStyleMedium}"
+                            TextWrapping="Wrap"
+                            Text="{Binding BackCameraResolutions}"                                
+                            />
+                        <!-- Front camera resolutions -->
+                        <TextBlock
+                            x:Uid="FrontCameraResolutions"
+                            Margin="0,0,0,6"
+                            Style="{ThemeResource SubheaderTextBlockStyle}"
+                            Foreground="White"
+                            Text=""
+                            />
+                        <TextBlock
+                            Style="{StaticResource ListItemTextBlockStyleMedium}"
+                            TextWrapping="Wrap"
+                            Text="{Binding FrontCameraResolutions}"                                
+                            />                        
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+
+            <!-- Sensors -->
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock x:Uid="Sensors" Foreground="White" Text="" />
+                </PivotItem.Header>
+                <ScrollViewer>
+                    <StackPanel>
+                        <!-- Basic sensors -->
+                        <TextBlock
+                            x:Uid="BasicSensors"
+                            Margin="0,0,0,6"
+                            Style="{ThemeResource SubheaderTextBlockStyle}"
+                            Foreground="White"
+                            Text=""
+                            />
+                        <ListView Margin="0,0,0,0" ItemsSource="{Binding SensorItems}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,17" Background="Transparent">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Source="{Binding BooleanValue, Converter={StaticResource IconUriConverter}}"
+                                            />
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Style="{StaticResource ListItemTextBlockStyleLarge}"
+                                            Text="{Binding HardwareFeatureText}"
+                                            />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <!-- SensorCore -->
+                        <TextBlock
+                            x:Uid="SensorCore"
+                            Margin="0,0,0,6"
+                            Style="{ThemeResource SubheaderTextBlockStyle}"
+                            Foreground="White"
+                            Text=""
+                            />
+                        <ListView Margin="0,0,0,0" ItemsSource="{Binding SensorCoreItems}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,17" Background="Transparent">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Source="{Binding BooleanValue, Converter={StaticResource IconUriConverter}}"
+                                            />
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Style="{StaticResource ListItemTextBlockStyleLarge}"
+                                            Text="{Binding HardwareFeatureText}"
+                                            />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+
+        </Pivot>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton
+                x:Uid="RefreshButton"
+                x:Name="RefreshButton"
+                Label=""
+                Icon="Refresh"
+                Visibility="Collapsed"
+                Click="RefreshButton_Click"
+                />
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Uid="AboutButton" x:Name="AboutButton" Label="" Click="AboutButton_Click" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
