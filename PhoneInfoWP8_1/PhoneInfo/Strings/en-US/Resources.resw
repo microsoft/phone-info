@@ -213,10 +213,10 @@
   <data name="Pixels.Text" xml:space="preserve">
     <value>pixels</value>
   </data>
-  <data name="PrimaryCamera.Text" xml:space="preserve">
+  <data name="BackCamera.Text" xml:space="preserve">
     <value>Back camera</value>
   </data>
-  <data name="PrimaryCameraFlash.Text" xml:space="preserve">
+  <data name="BackCameraFlash.Text" xml:space="preserve">
     <value>Back camera flash</value>
   </data>
   <data name="RefreshButton.Label" xml:space="preserve">
@@ -332,5 +332,11 @@
   </data>
   <data name="VersionNumber.Text" xml:space="preserve">
     <value>Version {0}</value>
+  </data>
+  <data name="BackCameraAutoFocus.Text" xml:space="preserve">
+    <value>Back camera auto focus</value>
+  </data>
+  <data name="FrontCameraAutoFocus.Text" xml:space="preserve">
+    <value>Front camera auto focus</value>
   </data>
 </root>

@@ -86,6 +86,8 @@ namespace PhoneInfo
         public bool HasFrontCamera { get; private set; }
         public bool HasBackCameraFlash { get; private set; }
         public bool HasFrontCameraFlash { get; private set; }
+        public bool HasBackCameraAutoFocus { get; private set; }
+        public bool HasFrontCameraAutoFocus { get; private set; }
         public List<Size> BackCameraPhotoResolutions { get; private set; }
         public List<Size> FrontCameraPhotoResolutions { get; private set; }
         public List<Size> BackCameraVideoResolutions { get; private set; }
@@ -280,12 +282,19 @@ namespace PhoneInfo
 
         #region Cameras and flashes
 
+        /// <summary>
+        /// Resolves the following properties for both back and front camera:
+        /// Flash and (auto) focus support and both photo and video capture
+        /// resolutions.
+        /// </summary>
         private async void ResolveCameraInfoAsync()
         {
             HasBackCamera = false;
             HasFrontCamera = false;
             HasBackCameraFlash = false;
             HasFrontCameraFlash = false;
+            HasBackCameraAutoFocus = false;
+            HasFrontCameraAutoFocus = false;
 
             var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(
                 Windows.Devices.Enumeration.DeviceClass.VideoCapture);
@@ -330,18 +339,34 @@ namespace PhoneInfo
                     return;
                 }
 
-                // Flash and resolutions
                 bool hasFlash = _mediaCapture.VideoDeviceController.FlashControl.Supported;
+
+                Windows.Media.Devices.MediaDeviceControlCapabilities focusCaps = _mediaCapture.VideoDeviceController.Focus.Capabilities;
+                bool focusChangedSupported = _mediaCapture.VideoDeviceController.FocusControl.FocusChangedSupported;
+                bool autoAdjustmentEnabled = false;
+                _mediaCapture.VideoDeviceController.Focus.TryGetAuto(out autoAdjustmentEnabled);
+
+                Debug.WriteLine(DebugTag + "ResolveCameraInfoAsync(): Focus details of the "
+                    + (cameraId.Equals(backCameraId) ? "back camera:" : "front camera:")
+                    + "\n\t- Focus.Capabilities.AutoModeSupported: " + focusCaps.AutoModeSupported
+                    + "\n\t- Focus.Capabilities.Max: " + focusCaps.Max
+                    + "\n\t- Focus.Capabilities.Min: " + focusCaps.Min
+                    + "\n\t- Focus.Capabilities.Step: " + focusCaps.Step
+                    + "\n\t- Focus.Capabilities.Supported: " + focusCaps.Supported
+                    + "\n\t- Focus.TryGetAuto() (automatic adjustment enabled): " + autoAdjustmentEnabled
+                    + "\n\t- FocusControl.FocusChangedSupported: " + focusChangedSupported);
 
                 if (cameraId.Equals(backCameraId))
                 {
                     HasBackCameraFlash = hasFlash;
+                    HasBackCameraAutoFocus = focusChangedSupported;
                     BackCameraPhotoResolutions = ResolveCameraResolutions(_mediaCapture, MediaStreamType.Photo);
                     BackCameraVideoResolutions = ResolveCameraResolutions(_mediaCapture, MediaStreamType.VideoRecord);
                 }
                 else if (cameraId.Equals(frontCameraId))
                 {
                     HasFrontCameraFlash = hasFlash;
+                    HasFrontCameraAutoFocus = focusChangedSupported;
                     FrontCameraPhotoResolutions = ResolveCameraResolutions(_mediaCapture, MediaStreamType.Photo);
                     FrontCameraVideoResolutions = ResolveCameraResolutions(_mediaCapture, MediaStreamType.VideoRecord);
                 }

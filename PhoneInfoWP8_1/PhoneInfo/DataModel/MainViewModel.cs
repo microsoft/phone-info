@@ -297,13 +297,17 @@ namespace PhoneInfo.DataModel
 
             foreach (BoolItemModel item in CameraItems)
             {
-                if (item.HardwareFeatureText.Equals(_resourceLoader.GetString("PrimaryCamera/Text")))
+                if (item.HardwareFeatureText.Equals(_resourceLoader.GetString("BackCamera/Text")))
                 {
                     item.BooleanValue = properties.HasBackCamera;
                 }
-                else if (item.HardwareFeatureText.Equals(_resourceLoader.GetString("PrimaryCameraFlash/Text")))
+                else if (item.HardwareFeatureText.Equals(_resourceLoader.GetString("BackCameraFlash/Text")))
                 {
                     item.BooleanValue = properties.HasBackCameraFlash;
+                }
+                else if (item.HardwareFeatureText.Equals(_resourceLoader.GetString("BackCameraAutoFocus/Text")))
+                {
+                    item.BooleanValue = properties.HasBackCameraAutoFocus;
                 }
                 else if (item.HardwareFeatureText.Equals(_resourceLoader.GetString("FrontCamera/Text")))
                 {
@@ -312,6 +316,10 @@ namespace PhoneInfo.DataModel
                 else if (item.HardwareFeatureText.Equals(_resourceLoader.GetString("FrontCameraFlash/Text")))
                 {
                     item.BooleanValue = properties.HasFrontCameraFlash;
+                }
+                else if (item.HardwareFeatureText.Equals(_resourceLoader.GetString("FrontCameraAutoFocus/Text")))
+                {
+                    item.BooleanValue = properties.HasFrontCameraAutoFocus;
                 }
             }
 
@@ -427,10 +435,14 @@ namespace PhoneInfo.DataModel
             SensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = _resourceLoader.GetString("OrientationSensor/Text") });
             SensorItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = _resourceLoader.GetString("NFC/Text") });
 
-            CameraItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = _resourceLoader.GetString("PrimaryCamera/Text") });
-            CameraItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = _resourceLoader.GetString("PrimaryCameraFlash/Text") });
+            CameraItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = _resourceLoader.GetString("BackCamera/Text") });
+            CameraItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = _resourceLoader.GetString("BackCameraFlash/Text") });
+            CameraItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = _resourceLoader.GetString("BackCameraAutoFocus/Text") });
             CameraItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = _resourceLoader.GetString("FrontCamera/Text") });
             CameraItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = _resourceLoader.GetString("FrontCameraFlash/Text") });
+            
+            // Front camera focus information is not reliable and thus not added
+            //CameraItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = _resourceLoader.GetString("FrontCameraAutoFocus/Text") });
 
             SensorCoreItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = _resourceLoader.GetString("ActivityMonitor/Text") });
             SensorCoreItems.Add(new BoolItemModel() { BooleanValue = false, HardwareFeatureText = _resourceLoader.GetString("PlaceMonitor/Text") });
