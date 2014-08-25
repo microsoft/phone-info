@@ -318,8 +318,8 @@
     <value>Place Monitor</value>
     <comment>.</comment>
   </data>
-  <data name="SensorCore.Text" xml:space="preserve">
-    <value>SensorCore</value>
+  <data name="SensorCoreApis.Text" xml:space="preserve">
+    <value>SensorCore APIs</value>
   </data>
   <data name="Sensors.Text" xml:space="preserve">
     <value>sensors</value>

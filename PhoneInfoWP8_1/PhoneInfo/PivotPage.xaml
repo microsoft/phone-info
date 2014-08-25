@@ -367,7 +367,7 @@
                         </ListView>
                         <!-- SensorCore -->
                         <TextBlock
-                            x:Uid="SensorCore"
+                            x:Uid="SensorCoreApis"
                             Margin="0,0,0,6"
                             Style="{ThemeResource SubheaderTextBlockStyle}"
                             Foreground="White"
