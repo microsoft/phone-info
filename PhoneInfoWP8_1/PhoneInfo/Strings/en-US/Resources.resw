@@ -339,4 +339,10 @@
   <data name="FrontCameraAutoFocus.Text" xml:space="preserve">
     <value>Front camera auto focus</value>
   </data>
+  <data name="NoCardPresent.Text" xml:space="preserve">
+    <value>No card present</value>
+  </data>
+  <data name="Yes.Text" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>

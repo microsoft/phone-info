@@ -415,7 +415,7 @@ namespace PhoneInfo.DataModel
             }
 
             ProcessorCoreCount = properties.ProcessorCoreCount;
-            SDCardPresent = properties.HasSDCardPresent ? _resourceLoader.GetString("Available/Text") : _resourceLoader.GetString("NotAvailable/Text");
+            SDCardPresent = properties.HasSDCardPresent ? _resourceLoader.GetString("Yes/Text") : _resourceLoader.GetString("NoCardPresent/Text");
             Theme = _resourceLoader.GetString("Theme/Text") + ": " + ((properties.AppTheme == Windows.UI.Xaml.ApplicationTheme.Dark) ? _resourceLoader.GetString("Dark/Text") : _resourceLoader.GetString("Light/Text"));
             ThemeAccentColor = _resourceLoader.GetString("ThemeAccentColor/Text") + ": " + properties.ThemeAccentColor.ToString();
             VibrationDeviceAvailable = properties.HasVibrationDevice ? _resourceLoader.GetString("Available/Text") : _resourceLoader.GetString("NotAvailable/Text");
