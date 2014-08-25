@@ -16,22 +16,52 @@ screen resolutions and display sizes.
 
 *Screenshots from Windows Phone 8.1 version running on Nokia Lumia 930.*
 
+The user interface of the app consists of four pivot views:
+
+* The **fixed** view provides screen and display properties.
+* The **dynamic** view displays app memory consumption, theme details and
+  battery status.
+* The **camera** view lists the available cameras and camera flashes of the
+  phone including the respective capture resolutions for both photo and video.
+* The **sensors** view lists the sensor availability of the phone including the
+  new SensorCore APIs.
+
 This example application is hosted in GitHub:
 https://github.com/nokia-developer/phone-info
-
-This project consists of two Phone Info application versions. See the respective
-README files for documentation:
-
-* [Phone Info for Windows Phone 8.1](https://github.com/nokia-developer/phone-info/blob/master/PhoneInfoWP8_1/README.md)
-* [Phone Info for Windows Phone 8](https://github.com/nokia-developer/phone-info/blob/master/PhoneInfoWP8/README.md)
 
 For more information on the subject, visit Nokia Lumia Developer's Library:
 
 * http://developer.nokia.com/Resources/Library/Lumia/#!optimising-for-large-screen-phones.html
 * http://developer.nokia.com/Resources/Library/Lumia/#!how-to-adapt-to-lumia-phone-hardware-features.html
 
+The latest version is compatible with Windows Phone 8.1 devices. Tested on Nokia
+Lumia 630, Nokia Lumia 930 and Nokia Lumia 1020. Note that the class responsible
+for resolving the device properties,
+[DeviceProperties](https://github.com/nokia-developer/phone-info/blob/master/PhoneInfoWP8_1/PhoneInfo/DeviceProperties.cs),
+is compatible for Windows 8.1 and will work e.g. on Windows 8.1 tablets. The
+user interface implementation, however, is Windows Phone 8.1 specific.
 
-License
+
+1. About implementation
+-------------------------------------------------------------------------------
+
+**Important files and classes:**
+
+* `DeviceProperties`: The main helper class which resolves and holds the
+  information of all the different device specific properties shown by the
+  application. **This is the class to extract from this project and place it
+  into your own application.**
+* `PivotPage`: Implements the application UI and controls the application logic.
+
+**Required capabilities:**
+
+* Proximity
+* Removable Storage
+* Webcam
+* *Internet (Client & Server)* (Required only by the link on the about page)
+
+
+2. License
 -------------------------------------------------------------------------------
 
 See the license text file delivered with this project. The license file is also
@@ -39,12 +69,7 @@ available online at
 https://github.com/nokia-developer/phone-info/blob/master/Licence.txt
 
 
-Version history
+3. Version history
 -------------------------------------------------------------------------------
 
-* Version 2.0: Project ported to support Windows (Phone) 8.1.
-* Version 1.2: Project name changed from "Hardware Info" to "Phone Info". New
-  properties added such as screen and display information. Two new Pivot items
-  added and the information shown in the views rearranged.
-* Version 1.1: Refactored the user interface. Characteristics view added.
-* Version 1.0: The initial release.
+* Version 2.0: Initial release for Windows (Phone) 8.1
