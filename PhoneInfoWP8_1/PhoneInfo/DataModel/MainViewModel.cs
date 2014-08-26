@@ -44,6 +44,20 @@ namespace PhoneInfo.DataModel
             }
         }
 
+        private string _deviceName;
+        public string DeviceName
+        {
+            get
+            {
+                return _deviceName;
+            }
+            private set
+            {
+                _deviceName = value;
+                NotifyPropertyChanged("DeviceName");
+            }
+        }
+
         private string _deviceTotalMemory;
         public string DeviceTotalMemory
         {
@@ -72,6 +86,20 @@ namespace PhoneInfo.DataModel
             }
         }
 
+        private string _firmwareVersion;
+        public string FirmwareVersion
+        {
+            get
+            {
+                return _firmwareVersion;
+            }
+            private set
+            {
+                _firmwareVersion = value;
+                NotifyPropertyChanged("FirmwareVersion");
+            }
+        }
+
         private string _frontCameraResolutions;
         public string FrontCameraResolutions
         {
@@ -86,6 +114,20 @@ namespace PhoneInfo.DataModel
             }
         }
 
+        private string _hardwareVersion;
+        public string HardwareVersion
+        {
+            get
+            {
+                return _hardwareVersion;
+            }
+            private set
+            {
+                _hardwareVersion = value;
+                NotifyPropertyChanged("HardwareVersion");
+            }
+        }
+
         private bool _hasBatteryStatusInfo;
         public bool HasBatteryStatusInfo
         {
@@ -97,6 +139,20 @@ namespace PhoneInfo.DataModel
             {
                 _hasBatteryStatusInfo = value;
                 NotifyPropertyChanged("HasBatteryStatusInfo");
+            }
+        }
+
+        private string _manufacturer;
+        public string Manufacturer
+        {
+            get
+            {
+                return _manufacturer;
+            }
+            private set
+            {
+                _manufacturer = value;
+                NotifyPropertyChanged("Manufacturer");
             }
         }
 
@@ -415,6 +471,10 @@ namespace PhoneInfo.DataModel
             }
 
             ProcessorCoreCount = properties.ProcessorCoreCount;
+            DeviceName = _resourceLoader.GetString("DeviceName/Text") + ": " + properties.DeviceName;
+            Manufacturer = _resourceLoader.GetString("Manufacturer/Text") + ": " + properties.Manufacturer;
+            HardwareVersion = _resourceLoader.GetString("HardwareVersion/Text") + ": " + properties.HardwareVersion;
+            FirmwareVersion = _resourceLoader.GetString("FirmwareVersion/Text") + ": " + properties.FirmwareVersion;
             SDCardPresent = properties.HasSDCardPresent ? _resourceLoader.GetString("Yes/Text") : _resourceLoader.GetString("NoCardPresent/Text");
             Theme = _resourceLoader.GetString("Theme/Text") + ": " + ((properties.AppTheme == Windows.UI.Xaml.ApplicationTheme.Dark) ? _resourceLoader.GetString("Dark/Text") : _resourceLoader.GetString("Light/Text"));
             ThemeAccentColor = _resourceLoader.GetString("ThemeAccentColor/Text") + ": " + properties.ThemeAccentColor.ToString();
@@ -452,6 +512,7 @@ namespace PhoneInfo.DataModel
             DeviceTotalMemory = _resourceLoader.GetString("Waiting/Text");
             MemoryStatus = _resourceLoader.GetString("Waiting/Text");
             ScreenResolution = _resourceLoader.GetString("Waiting/Text");
+            DeviceName = _resourceLoader.GetString("Waiting/Text");
             SDCardPresent = _resourceLoader.GetString("Waiting/Text");
             Theme = _resourceLoader.GetString("Waiting/Text");
             VibrationDeviceAvailable = _resourceLoader.GetString("Waiting/Text");

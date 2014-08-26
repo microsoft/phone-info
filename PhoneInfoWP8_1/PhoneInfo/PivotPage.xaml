@@ -32,18 +32,19 @@
             <ImageBrush ImageSource="Assets/Images/Background.png"></ImageBrush>
         </Grid.Background>
 
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <!--<TextBlock x:Uid="ApplicationTitleUpper" Text="" />-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             <ProgressBar
                 x:Name="MyProgressBar"
-                Margin="0,-70,0,0"
-                Height="10"
+                Grid.Row="0"
                 Foreground="White"
                 IsIndeterminate="True"
                 />
-        </StackPanel>
-
+        </Grid>
+        
         <!-- Pivot control -->
         <Pivot x:Uid="ApplicationToUpper" x:Name="MyPivot" Title="" Foreground="White">
 
@@ -54,6 +55,38 @@
                 </PivotItem.Header>
                 <ScrollViewer>
                     <StackPanel>
+                        <!-- About phone (manufacturer, hw and fw versions) -->
+                        <StackPanel Margin="0,0,0,17">
+                            <TextBlock
+                                x:Uid="AboutPhone"
+                                Margin="0,0,0,6"
+                                Style="{ThemeResource SubheaderTextBlockStyle}"
+                                Foreground="White"
+                                TextWrapping="Wrap"
+                                Text=""
+                                />
+                            <TextBlock
+                                Style="{StaticResource ListItemTextBlockStyleMedium}"
+                                TextWrapping="Wrap"
+                                Text="{Binding DeviceName}"
+                                />
+                            <TextBlock
+                                Style="{StaticResource ListItemTextBlockStyleMedium}"
+                                TextWrapping="Wrap"
+                                Text="{Binding Manufacturer}"
+                                />
+                            <TextBlock
+                                Style="{StaticResource ListItemTextBlockStyleMedium}"
+                                TextWrapping="Wrap"
+                                Text="{Binding HardwareVersion}"
+                                />
+                            <TextBlock
+                                Style="{StaticResource ListItemTextBlockStyleMedium}"
+                                TextWrapping="Wrap"
+                                Text="{Binding FirmwareVersion}"
+                                />
+                        </StackPanel>
+
                         <!-- Screen/display -->
                         <StackPanel Margin="0,0,0,17">
                             <TextBlock

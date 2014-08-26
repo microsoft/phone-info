@@ -33,18 +33,42 @@ namespace PhoneInfo
     /// </summary>
     public class DeviceProperties
     {
-        /*
-         * Constants
-         */
+        // Constants ->
+
         private const string DebugTag = "DeviceProperties: ";
 
-        /*
-         * Data types
+        /* Focus properties available via MediaCapture.VideoDeviceController
+         * may return invalid values for older phones, which original were
+         * released with Windows Phone OS version 8.0. Thus, we need to check
+         * those phone models explicitly.
          */
+        private readonly string[] WP80PhoneModelsWithAutoFocus =
+        {
+            "RM-820", // Nokia Lumia 920
+            "RM-821", // Nokia Lumia 920
+            "RM-822", // Nokia Lumia 920
+            "RM-824", // Nokia Lumia 820
+            "RM-825", // Nokia Lumia 820
+            "RM-826", // Nokia Lumia 820
+            "RM-846", // Nokia Lumia 620
+            "RM-867", // Nokia Lumia 920
+            "RM-875", // Nokia Lumia 1020
+            "RM-876", // Nokia Lumia 1020
+            "RM-877", // Nokia Lumia 1020
+            "RM-885", // Nokia Lumia 720
+            "RM-887", // Nokia Lumia 720
+            "RM-892", // Nokia Lumia 925
+            "RM-893", // Nokia Lumia 925
+            "RM-910", // Nokia Lumia 925
+            "RM-955"  // Nokia Lumia 925
+        };
+
+        // Data types ->
 
         public enum Resolutions
         {
             WVGA, // Wide VGA, 480x800
+            qHD, // qHD, 540x960
             HD720, // HD, 720x1280
             WXGA, // Wide Extended Graphics Array (WXGA), 768x1280
             HD1080, // Full HD, 1080x1920
@@ -58,9 +82,7 @@ namespace PhoneInfo
             Giga
         };
 
-        /*
-         * Members and properties
-         */
+        // Members and properties ->
 
         private static DeviceProperties _instance = null;
         private static Object _syncLock = new Object();
@@ -117,6 +139,10 @@ namespace PhoneInfo
         public bool SensorCoreTrackPointMonitorApiSupported { get; private set; }
 
         // Other hardware properties
+        public string DeviceName { get; private set; }
+        public string Manufacturer { get; private set; }
+        public string HardwareVersion { get; private set; }
+        public string FirmwareVersion { get; private set; }
         public bool HasSDCardPresent { get; private set; }
         public bool HasVibrationDevice { get; private set; }
         public int ProcessorCoreCount { get; private set; }
@@ -172,6 +198,7 @@ namespace PhoneInfo
                 _numberOfAsyncOperationsToComplete = 5; // This must match the number of async method calls!
                 _numberOfAsyncOperationsCompleted = 0;
 
+                ResolveDeviceInformation(); // ResolveCameraInfoAsync() depends on this to be run first!
                 ResolveCameraInfoAsync();
                 ResolveMemoryInfo();
                 ResolvePowerInfo();
@@ -295,6 +322,10 @@ namespace PhoneInfo
             HasFrontCameraFlash = false;
             HasBackCameraAutoFocus = false;
             HasFrontCameraAutoFocus = false;
+            BackCameraPhotoResolutions = new List<Size>();
+            BackCameraVideoResolutions = new List<Size>();
+            FrontCameraPhotoResolutions = new List<Size>();
+            FrontCameraVideoResolutions = new List<Size>();
 
             var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(
                 Windows.Devices.Enumeration.DeviceClass.VideoCapture);
@@ -326,17 +357,27 @@ namespace PhoneInfo
                 if (_mediaCapture == null)
                 {
                     _mediaCapture = new MediaCapture();
-                    await _mediaCapture.InitializeAsync(
-                        new MediaCaptureInitializationSettings
-                        {
-                            VideoDeviceId = cameraId
-                        });
+
+                    try
+                    {
+                        await _mediaCapture.InitializeAsync(
+                            new MediaCaptureInitializationSettings
+                            {
+                                VideoDeviceId = cameraId
+                            });
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(DebugTag + "ResolveCameraInfoAsync(): Failed to initialize camera: " + e.ToString());
+                        _mediaCapture = null;
+                        continue;
+                    }
                 }
 
                 if (_mediaCapture.VideoDeviceController == null)
                 {
                     Debug.WriteLine(DebugTag + "ResolveCameraInfoAsync(): No video device controller!");
-                    return;
+                    continue;
                 }
 
                 bool hasFlash = _mediaCapture.VideoDeviceController.FlashControl.Supported;
@@ -373,6 +414,17 @@ namespace PhoneInfo
 
                 _mediaCapture.Dispose();
                 _mediaCapture = null;
+            }
+
+            // Auto focus fix for older phones
+            foreach (string model in WP80PhoneModelsWithAutoFocus)
+            {
+                if (DeviceName.Contains(model))
+                {
+                    Debug.WriteLine(DebugTag + "ResolveCameraInfoAsync(): Auto focus fix applied");
+                    HasBackCameraAutoFocus = true;
+                    break;
+                }
             }
 
             // Sort resolutions from highest to lowest
@@ -497,9 +549,13 @@ namespace PhoneInfo
 
             ScreenResolutionSize = new Size(Math.Round(screenResolutionX), Math.Round(screenResolutionY));
 
-            if (screenResolutionY < 1280)
+            if (screenResolutionY < 960)
             {
                 ScreenResolution = Resolutions.WVGA;
+            }
+            else if (screenResolutionY < 1280)
+            {
+                ScreenResolution = Resolutions.qHD;
             }
             else if (screenResolutionY < 1920)
             {
@@ -594,7 +650,17 @@ namespace PhoneInfo
 
         #endregion
 
-        #region Others
+        #region Other hardware properties
+
+        private void ResolveDeviceInformation()
+        {
+            Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation deviceInformation =
+                new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
+            DeviceName = deviceInformation.SystemProductName;
+            Manufacturer = deviceInformation.SystemManufacturer;
+            HardwareVersion = deviceInformation.SystemHardwareVersion;
+            FirmwareVersion = deviceInformation.SystemFirmwareVersion;
+        }
 
         /// <summary>
         /// Resolves the SD card information. Note that the result false if the
@@ -646,7 +712,7 @@ namespace PhoneInfo
             Debug.WriteLine(DebugTag + "ResolveProcessorCoreCount(): " + ProcessorCoreCount);
         }
 
-        #endregion // Others
+        #endregion // Other hardware properties
 
         #region Software, themes and non-hardware dependent
 

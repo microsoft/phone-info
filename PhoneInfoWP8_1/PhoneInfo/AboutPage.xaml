@@ -31,32 +31,34 @@
             <TextBlock x:Name="VersionNumberTextBlock" x:Uid="VersionNumber" Margin="0,6,0,0" Style="{ThemeResource SubheaderTextBlockStyle}" Foreground="WhiteSmoke" Text="" />
         </StackPanel>
 
-        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="24,6,24,0">
-            <StackPanel>
-                <TextBlock
-                    Style="{ThemeResource BodyTextBlockStyle}"
-                    Foreground="White"
-                    TextWrapping="Wrap"
-                    Text="This is an example application for retrieving both static and dynamic properties of a Windows Phone device. The methods demonstrated by this app can be used for adapting your application to wider range of phone models; If a phone does not support a certain non-vital feature of your application, you can gracefully adapt by hiding that feature dynamically."
-                    />
-                <TextBlock
-                    Margin="0,12,0,0"
-                    Style="{ThemeResource BodyTextBlockStyle}"
-                    Foreground="White"
-                    TextWrapping="Wrap"
-                    Text="The source code of this application is hosted in GitHub:"
-                    />
-                <HyperlinkButton NavigateUri="https://github.com/nokia-developer/phone-info">
-                    <HyperlinkButton.Content>
-                        <TextBlock
-                            Style="{ThemeResource BodyTextBlockStyle}"
-                            Foreground="White"
-                            TextWrapping="Wrap"                           
-                            Text="github.com/nokia-developer/phone-info"
-                            />
-                    </HyperlinkButton.Content>
-                </HyperlinkButton>
-            </StackPanel>
+        <Grid Grid.Row="1" x:Name="ContentRoot">
+            <ScrollViewer>
+                <StackPanel  Margin="24,6,24,24">
+                    <TextBlock
+                        Style="{ThemeResource BodyTextBlockStyle}"
+                        Foreground="White"
+                        TextWrapping="Wrap"
+                        Text="This is an example application for retrieving both static and dynamic properties of a Windows Phone device. The methods demonstrated by this app can be used for adapting your application to wider range of phone models; If a phone does not support a certain non-vital feature of your application, you can gracefully adapt by hiding that feature dynamically."
+                        />
+                    <TextBlock
+                        Margin="0,12,0,0"
+                        Style="{ThemeResource BodyTextBlockStyle}"
+                        Foreground="White"
+                        TextWrapping="Wrap"
+                        Text="The source code of this application is hosted in GitHub:"
+                        />
+                    <HyperlinkButton NavigateUri="https://github.com/nokia-developer/phone-info">
+                        <HyperlinkButton.Content>
+                            <TextBlock
+                                Style="{ThemeResource BodyTextBlockStyle}"
+                                Foreground="White"
+                                TextWrapping="Wrap"                           
+                                Text="github.com/nokia-developer/phone-info"
+                                />
+                        </HyperlinkButton.Content>
+                    </HyperlinkButton>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>
