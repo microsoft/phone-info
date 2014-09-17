@@ -5,7 +5,7 @@ Phone Info is an example application for retrieving both static and dynamic
 properties of a Windows Phone device. The methods implemented in
 `DeviceProperties` class and utilised in this app can be used for adapting your
 application to wider range of phone models; If a phone does not support a 
-ertain non-vital feature of your application, you can gracefully adapt by hiding
+certain non-vital feature of your application, you can gracefully adapt by hiding
 that feature dynamically. The same applies to optimising your app for different
 screen resolutions and display sizes.
 
