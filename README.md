@@ -31,6 +31,63 @@ For more information on the subject, visit Nokia Lumia Developer's Library:
 * http://developer.nokia.com/Resources/Library/Lumia/#!how-to-adapt-to-lumia-phone-hardware-features.html
 
 
+Features
+-------------------------------------------------------------------------------
+
+| **Feature** | **Version 2.0 (WP 8.1)** | **Version 1.2 (WP 8)** |
+| ----------- | ------------------------ | ---------------------- |
+| **General information about the phone** | | |
+| Device name | X | |
+| Manufacturer | X | X |
+| Hardware version | X | X |
+| Firmware version | X | X |
+| Operator | | X |
+| **Battery and power** | | |
+| Battery status information availability | X | X |
+| Power source (is connected to charger) | | X |
+| Remaining battery charge | X | |
+| Power saving mode enabled | X | |
+| **Camera** | | |
+| Back camera availability | X | X |
+| Front camera availability | X | X |
+| Back camera flash availability | X | X |
+| Front camera flash availability | X | X |
+| Back camera auto focus availability | X | |
+| Back camera photo resolutions | X | |
+| Front camera photo resolutions | X | |
+| Back camera video resolutions | X | |
+| Front camera video resolutions | X | |
+| **Memory** | | |
+| App (current) memory usage | X | X |
+| App memory usage limit | X | X |
+| App memory peak | | X |
+| Device total memory | | X |
+| **Screen and display** | | |
+| Screen resolution | X | X |
+| Raw DPI for width and height | (Possible, but dropped from interface) | X |
+| Display size | X | |
+| **Sensor availability** | | |
+| Accelerometer | X | X |
+| Compass | X | X |
+| Gyro | X | X |
+| Inclinometer | X | X |
+| Motion API | | X |
+| Orientation | X | X |
+| Proximity (NFC) | X | X |
+| SensorCode: Activity monitor API | X | |
+| SensorCode: Place monitor API | X | |
+| SensorCode: Step counter API | X | |
+| SensorCode: Track point monitor API | X | |
+| **Other harware properties** | | |
+| Processor count | X | |
+| SD card present | X | X |
+| Vibra availability | X | X |
+| FM radio availability | | X |
+| **Theme** | | |
+| Theme (dark/light) | X | X |
+| Theme accent color | X | X |
+
+
 License
 -------------------------------------------------------------------------------
 
