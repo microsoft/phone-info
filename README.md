@@ -79,7 +79,7 @@ Features
 | SensorCode: Step counter API | X | |
 | SensorCode: Track point monitor API | X | |
 | **Other harware properties** | | |
-| Processor count | X | |
+| Processor core count | X | |
 | SD card present | X | X |
 | Vibra availability | X | X |
 | FM radio availability | | X |
