@@ -99,7 +99,7 @@ https://github.com/nokia-developer/phone-info/blob/master/Licence.txt
 Version history
 -------------------------------------------------------------------------------
 
-* Version 2.0: Project ported to support Windows (Phone) 8.1.
+* Version 2.0: Project ported to support Universal apps for Windows (Phone) 8.1. Support added for many new properties, especially related to camera, battery and SensorCore.
 * Version 1.2: Project name changed from "Hardware Info" to "Phone Info". New
   properties added such as screen and display information. Two new Pivot items
   added and the information shown in the views rearranged.
