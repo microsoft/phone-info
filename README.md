@@ -9,21 +9,21 @@ certain non-vital feature of your application, you can gracefully adapt by hidin
 that feature dynamically. The same applies to optimising your app for different
 screen resolutions and display sizes.
 
-![Fixed features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots_wp8_1/pi_fixed_small.png)&nbsp;
-![Dynamic features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots_wp8_1/pi_dynamic_small.png)&nbsp;
-![Camera features view Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots_wp8_1/pi_camera_1_small.png)&nbsp;
-![Sensor features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots_wp8_1/pi_sensors_2_small.png)
+![Fixed features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8_1/pi_fixed_small.png)&nbsp;
+![Dynamic features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8_1/pi_dynamic_small.png)&nbsp;
+![Camera features view Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8_1/pi_camera_1_small.png)&nbsp;
+![Sensor features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8_1/pi_sensors_2_small.png)
 
 *Screenshots from Windows Phone 8.1 version running on Nokia Lumia 930.*
 
 This example application is hosted in GitHub:
-https://github.com/nokia-developer/phone-info
+https://github.com/Microsoft/phone-info
 
 This project consists of two Phone Info application versions. See the respective
 README files for documentation:
 
-* [Phone Info for Windows Phone 8.1](https://github.com/nokia-developer/phone-info/blob/master/PhoneInfoWP8_1/README.md)
-* [Phone Info for Windows Phone 8](https://github.com/nokia-developer/phone-info/blob/master/PhoneInfoWP8/README.md)
+* [Phone Info for Windows Phone 8.1](https://github.com/Microsoft/phone-info/blob/master/PhoneInfoWP8_1/README.md)
+* [Phone Info for Windows Phone 8](https://github.com/Microsoft/phone-info/blob/master/PhoneInfoWP8/README.md)
 
 For more information on the subject, visit Nokia Lumia Developer's Library:
 
@@ -34,7 +34,7 @@ For more information on the subject, visit Nokia Lumia Developer's Library:
 Features
 -------------------------------------------------------------------------------
 
-| **Feature** | **Version 2.0 (WP 8.1)** | **Version 1.2 (WP 8)** |
+| **Feature** | **Version 2.0 (WP 8.1)** | **Version 1.2 (WP 8.0)** |
 | ----------- | ------------------------ | ---------------------- |
 | **General information about the phone** | | |
 | Device name | X | |
@@ -74,10 +74,10 @@ Features
 | Motion API | | X |
 | Orientation | X | X |
 | Proximity (NFC) | X | X |
-| SensorCode: Activity monitor API | X | |
-| SensorCode: Place monitor API | X | |
-| SensorCode: Step counter API | X | |
-| SensorCode: Track point monitor API | X | |
+| SensorCore: Activity monitor API | X | |
+| SensorCore: Place monitor API | X | |
+| SensorCore: Step counter API | X | |
+| SensorCore: Track point monitor API | X | |
 | **Other harware properties** | | |
 | Processor core count | X | |
 | SD card present | X | X |
@@ -93,7 +93,7 @@ License
 
 See the license text file delivered with this project. The license file is also
 available online at
-https://github.com/nokia-developer/phone-info/blob/master/Licence.txt
+https://github.com/Microsoft/phone-info/blob/master/Licence.txt
 
 
 Version history
