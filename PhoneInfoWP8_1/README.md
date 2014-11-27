@@ -9,10 +9,10 @@ ertain non-vital feature of your application, you can gracefully adapt by hiding
 that feature dynamically. The same applies to optimising your app for different
 screen resolutions and display sizes.
 
-![Fixed features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots_wp8_1/pi_fixed_small.png)&nbsp;
-![Dynamic features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots_wp8_1/pi_dynamic_small.png)&nbsp;
-![Camera features view Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots_wp8_1/pi_camera_1_small.png)&nbsp;
-![Sensor features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots_wp8_1/pi_sensors_2_small.png)
+![Fixed features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8_1/pi_fixed_small.png)&nbsp;
+![Dynamic features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8_1/pi_dynamic_small.png)&nbsp;
+![Camera features view Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8_1/pi_camera_1_small.png)&nbsp;
+![Sensor features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8_1/pi_sensors_2_small.png)
 
 *Screenshots from Windows Phone 8.1 version running on Nokia Lumia 930.*
 
@@ -27,7 +27,7 @@ The user interface of the app consists of four pivot views:
   new SensorCore APIs.
 
 This example application is hosted in GitHub:
-https://github.com/nokia-developer/phone-info
+https://github.com/Microsoft/phone-info
 
 For more information on the subject, visit Nokia Lumia Developer's Library:
 
@@ -37,7 +37,7 @@ For more information on the subject, visit Nokia Lumia Developer's Library:
 The latest version is compatible with Windows Phone 8.1 devices. Tested on Nokia
 Lumia 630, Nokia Lumia 930 and Nokia Lumia 1020. Note that the class responsible
 for resolving the device properties,
-[DeviceProperties](https://github.com/nokia-developer/phone-info/blob/master/PhoneInfoWP8_1/PhoneInfo/DeviceProperties.cs),
+[DeviceProperties](https://github.com/Microsoft/phone-info/blob/master/PhoneInfoWP8_1/PhoneInfo/DeviceProperties.cs),
 is compatible for Windows 8.1 and will work e.g. on Windows 8.1 tablets. The
 user interface implementation, however, is Windows Phone 8.1 specific.
 
@@ -66,7 +66,7 @@ user interface implementation, however, is Windows Phone 8.1 specific.
 
 See the license text file delivered with this project. The license file is also
 available online at
-https://github.com/nokia-developer/phone-info/blob/master/Licence.txt
+https://github.com/Microsoft/phone-info/blob/master/Licence.txt
 
 
 3. Version history

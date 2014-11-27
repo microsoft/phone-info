@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HardwareInfo")]
-[assembly: AssemblyCopyright("Copyright © 2013 Nokia Corporation")]
+[assembly: AssemblyCopyright("Copyright © 2013-2014 Microsoft Mobile")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -9,10 +9,10 @@ of your application, you can gracefully adapt by hiding that feature
 dynamically. The same applies to optimising your app for different screen
 resolutions and display sizes.
 
-![General view on Nokia Lumia 1520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots_wp8/general_l1520_small.png)&nbsp;
-![Sensors on Nokia Lumia 1520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots_wp8/sensors_l1520_small.png)&nbsp;
-![Cameras and flashes on Nokia Lumia 1520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots_wp8/camera_l1520_small.png)&nbsp;
-![Others view on Nokia Lumia 520](https://raw.github.com/nokia-developer/phone-info/master/doc/screenshots_wp8/others_1_l520_small.png)
+![General view on Nokia Lumia 1520](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8/general_l1520_small.png)&nbsp;
+![Sensors on Nokia Lumia 1520](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8/sensors_l1520_small.png)&nbsp;
+![Cameras and flashes on Nokia Lumia 1520](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8/camera_l1520_small.png)&nbsp;
+![Others view on Nokia Lumia 520](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8/others_1_l520_small.png)
 
 *Three first screenshots are from Nokia Lumia 1520, the last one (Others view) is from Nokia Lumia 520.*
 
@@ -25,7 +25,7 @@ versions). In addition, there is information about operator, phone theme and
 availability of FM radio, SD card etc.
 
 This example application is hosted in GitHub:
-https://github.com/nokia-developer/phone-info
+https://github.com/Microsoft/phone-info
 
 For more information on the subject, visit Nokia Lumia Developer's Library:
 
@@ -63,7 +63,7 @@ Lumia 520, Nokia Lumia 1020 and Nokia Lumia 1520.
 
 See the license text file delivered with this project. The license file is also
 available online at
-https://github.com/nokia-developer/phone-info/blob/master/Licence.txt
+https://github.com/Microsoft/phone-info/blob/master/Licence.txt
 
 
 3. Version history

@@ -51,8 +51,8 @@
                         Margin="-12,0,0,0"
                         Foreground="{StaticResource PhoneAccentBrush}"
                         FontSize="{StaticResource PhoneFontSizeNormal}"
-                        Content="https://github.com/nokia-developer/phone-info"
-                        NavigateUri="https://github.com/nokia-developer/phone-info"
+                        Content="https://github.com/Microsoft/phone-info"
+                        NavigateUri="https://github.com/Microsoft/phone-info"
                         TargetName="_blank"
                         />
             </StackPanel>

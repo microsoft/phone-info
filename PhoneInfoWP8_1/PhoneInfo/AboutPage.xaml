@@ -47,13 +47,13 @@
                         TextWrapping="Wrap"
                         Text="The source code of this application is hosted in GitHub:"
                         />
-                    <HyperlinkButton NavigateUri="https://github.com/nokia-developer/phone-info">
+                    <HyperlinkButton NavigateUri="https://github.com/Microsoft/phone-info">
                         <HyperlinkButton.Content>
                             <TextBlock
                                 Style="{ThemeResource BodyTextBlockStyle}"
                                 Foreground="White"
                                 TextWrapping="Wrap"                           
-                                Text="github.com/nokia-developer/phone-info"
+                                Text="github.com/Microsoft/phone-info"
                                 />
                         </HyperlinkButton.Content>
                     </HyperlinkButton>
