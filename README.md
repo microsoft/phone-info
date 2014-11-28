@@ -9,10 +9,10 @@ certain non-vital feature of your application, you can gracefully adapt by hidin
 that feature dynamically. The same applies to optimising your app for different
 screen resolutions and display sizes.
 
-![Fixed features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8_1/pi_fixed_small.png)&nbsp;
-![Dynamic features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8_1/pi_dynamic_small.png)&nbsp;
-![Camera features view Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8_1/pi_camera_1_small.png)&nbsp;
-![Sensor features view on Nokia Lumia 930 (Windows Phone 8.1 version)](https://raw.github.com/Microsoft/phone-info/master/doc/screenshots_wp8_1/pi_sensors_2_small.png)
+![Fixed features view on Nokia Lumia 930 (Windows Phone 8.1 version)](/doc/screenshots_wp8_1/pi_fixed_small.png?raw=true)&nbsp;
+![Dynamic features view on Nokia Lumia 930 (Windows Phone 8.1 version)](/doc/screenshots_wp8_1/pi_dynamic_small.png?raw=true)&nbsp;
+![Camera features view Nokia Lumia 930 (Windows Phone 8.1 version)](/doc/screenshots_wp8_1/pi_camera_1_small.png?raw=true)&nbsp;
+![Sensor features view on Nokia Lumia 930 (Windows Phone 8.1 version)](/doc/screenshots_wp8_1/pi_sensors_2_small.png?raw=true)
 
 *Screenshots from Windows Phone 8.1 version running on Nokia Lumia 930.*
 
