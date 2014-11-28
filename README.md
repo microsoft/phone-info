@@ -25,7 +25,7 @@ README files for documentation:
 * [Phone Info for Windows Phone 8.1](https://github.com/Microsoft/phone-info/blob/master/PhoneInfoWP8_1/README.md)
 * [Phone Info for Windows Phone 8](https://github.com/Microsoft/phone-info/blob/master/PhoneInfoWP8/README.md)
 
-For more information on the subject, visit Nokia Lumia Developer's Library:
+For more information on the subject, visit Lumia Developer's Library:
 
 * http://developer.nokia.com/Resources/Library/Lumia/#!optimising-for-large-screen-phones.html
 * http://developer.nokia.com/Resources/Library/Lumia/#!how-to-adapt-to-lumia-phone-hardware-features.html
